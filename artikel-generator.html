@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generator Artikel — Bea Cukai Pasuruan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #122040;
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --cream: #f5f0e8;
+    --cream-dark: #ede6d6;
+    --text: #1a1a2e;
+    --text-muted: #6b6b7a;
+    --white: #ffffff;
+    --success: #2d7a4f;
+    --border: rgba(201,168,76,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* BACKGROUND TEXTURE */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(201,168,76,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(201,168,76,0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HEADER */
+  header {
+    padding: 48px 0 32px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+
+  .header-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--border);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    background: rgba(201,168,76,0.08);
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  header h1 span {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  header p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.55);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* FORM SECTION */
+  .form-section {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px;
+    margin-bottom: 28px;
+    backdrop-filter: blur(10px);
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .form-grid .full {
+    grid-column: 1 / -1;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  label {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  label .w-tag {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--gold);
+    background: rgba(201,168,76,0.15);
+    padding: 2px 7px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  input, textarea, select {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    transition: all 0.2s;
+    outline: none;
+    resize: none;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: rgba(255,255,255,0.25);
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.07);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+  }
+
+  select option {
+    background: var(--navy-mid);
+    color: var(--white);
+  }
+
+  textarea { min-height: 90px; line-height: 1.6; }
+  textarea.tall { min-height: 130px; }
+
+  /* STYLE OPTIONS */
+  .style-options {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .style-opt {
+    flex: 1;
+    min-width: 140px;
+    padding: 14px 16px;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: rgba(255,255,255,0.04);
+    text-align: center;
+  }
+
+  .style-opt input[type="radio"] { display: none; }
+
+  .style-opt:has(input:checked) {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.1);
+  }
+
+  .style-opt-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .style-opt-desc {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.4;
+  }
+
+  /* GENERATE BUTTON */
+  .btn-generate {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+  }
+
+  .btn-generate:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(201,168,76,0.35);
+  }
+
+  .btn-generate:active { transform: translateY(0); }
+  .btn-generate:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* LOADING */
+  .loader {
+    width: 18px; height: 18px;
+    border: 2px solid rgba(10,22,40,0.3);
+    border-top-color: var(--navy);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* OUTPUT SECTION */
+  #output-section {
+    display: none;
+    animation: fadeUp 0.5s ease;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* JUDUL ALTERNATIF */
+  .judul-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .judul-item {
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: var(--white);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    line-height: 1.4;
+  }
+
+  .judul-item:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.07);
+  }
+
+  .judul-item .copy-icon {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(201,168,76,0.15);
+    border-radius: 6px;
+    font-size: 12px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+
+  .judul-item:hover .copy-icon { opacity: 1; }
+
+  /* ARTIKEL OUTPUT */
+  .artikel-box {
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 40px;
+    color: var(--text);
+  }
+
+  .artikel-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.35;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--cream-dark);
+  }
+
+  .artikel-body {
+    font-size: 15px;
+    line-height: 1.85;
+    color: #2a2a3a;
+    white-space: pre-wrap;
+  }
+
+  .artikel-body p {
+    margin-bottom: 18px;
+    text-align: justify;
+  }
+
+  /* ACTION BUTTONS */
+  .action-bar {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .btn-action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .btn-copy {
+    background: rgba(201,168,76,0.15);
+    color: var(--gold-light);
+    border: 1px solid var(--border);
+  }
+
+  .btn-copy:hover { background: rgba(201,168,76,0.25); }
+
+  .btn-download {
+    background: rgba(255,255,255,0.07);
+    color: rgba(255,255,255,0.8);
+    border: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .btn-download:hover { background: rgba(255,255,255,0.12); }
+
+  .btn-regen {
+    background: transparent;
+    color: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .btn-regen:hover { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.25); }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    background: var(--success);
+    color: white;
+    padding: 14px 22px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateY(80px);
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 999;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  }
+
+  .toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 40px 0 32px;
+    color: rgba(255,255,255,0.2);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+
+  footer span { color: var(--gold); opacity: 0.5; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .form-grid .full { grid-column: 1; }
+    .form-section { padding: 24px 20px; }
+    .artikel-box { padding: 24px 20px; }
+    .action-bar { flex-direction: column; }
+    .btn-action { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="header-badge">✦ Bea Cukai Pasuruan</div>
+    <h1>Generator <span>Artikel</span> Buletin</h1>
+    <p>Masukkan data 5W+1H, sistem akan menghasilkan artikel siap terbit secara otomatis.</p>
+  </header>
+
+  <!-- FORM -->
+  <div class="form-section">
+    <div class="section-label">Informasi Berita</div>
+    <div class="form-grid">
+
+      <div class="field full">
+        <label><span class="w-tag">WHAT</span> Apa kegiatan yang dilaksanakan?</label>
+        <input type="text" id="what" placeholder="cth: Bakti Sosial 'Pagi Cetar', pembagian takjil, pembinaan mental...">
+      </div>
+
+      <div class="field">
+        <label><span class="w-tag">WHO</span> Siapa yang terlibat / penyelenggara?</label>
+        <input type="text" id="who" placeholder="cth: KPPBC TMP A Pasuruan, pegawai Bea Cukai...">
+      </div>
+
+      <div class="field">
+        <label><span class="w-tag">WHEN</span> Kapan dilaksanakan?</label>
+        <input type="text" id="when" placeholder="cth: Rabu, 11 Maret 2026">
+      </div>
+
+      <div class="field">
+        <label><span class="w-tag">WHERE</span> Di mana lokasi kegiatan?</label>
+        <input type="text" id="where" placeholder="cth: Depan Kantor Bea Cukai Pasuruan, kawasan PIER...">
+      </div>
+
+      <div class="field">
+        <label><span class="w-tag">WHO</span> Siapa sasaran / penerima manfaat?</label>
+        <input type="text" id="target" placeholder="cth: warga sekitar PIER, pegawai, masyarakat umum...">
+      </div>
+
+      <div class="field full">
+        <label><span class="w-tag">WHY</span> Mengapa kegiatan ini dilaksanakan?</label>
+        <textarea id="why" placeholder="cth: Dalam rangka Ramadhan 1447 H, mempererat silaturahmi, bentuk kepedulian sosial..."></textarea>
+      </div>
+
+      <div class="field full">
+        <label><span class="w-tag">HOW</span> Bagaimana kegiatan berlangsung? (detail, jumlah, rangkaian acara)</label>
+        <textarea class="tall" id="how" placeholder="cth: Dibagikan 70 paket sembako, dihadiri 100 warga, dimulai pukul 08.00, dihadiri Kepala Kantor..."></textarea>
+      </div>
+
+      <div class="field full">
+        <label>Kutipan / Pesan penting (opsional)</label>
+        <input type="text" id="quote" placeholder="cth: pernyataan Kepala Kantor, tema kegiatan, tagline...">
+      </div>
+
+    </div>
+  </div>
+
+  <!-- STYLE -->
+  <div class="form-section">
+    <div class="section-label">Gaya Penulisan</div>
+    <div class="style-options">
+      <label class="style-opt">
+        <input type="radio" name="style" value="softsellinghumaniora" checked>
+        <div class="style-opt-title">Soft-Selling Humanis</div>
+        <div class="style-opt-desc">Hangat, reflektif, membangun citra institusi secara halus</div>
+      </label>
+      <label class="style-opt">
+        <input type="radio" name="style" value="formal">
+        <div class="style-opt-title">Berita Formal</div>
+        <div class="style-opt-desc">Lugas, informatif, cocok untuk rilis resmi</div>
+      </label>
+      <label class="style-opt">
+        <input type="radio" name="style" value="feature">
+        <div class="style-opt-title">Feature / Narasi</div>
+        <div class="style-opt-desc">Bercerita, deskriptif, nuansa jurnalistik mendalam</div>
+      </label>
+    </div>
+
+    <div style="margin-top: 20px; display: flex; gap: 16px; flex-wrap: wrap;">
+      <div class="field" style="flex: 1; min-width: 180px;">
+        <label>Jumlah paragraf</label>
+        <select id="paragraf">
+          <option value="3">3 paragraf</option>
+          <option value="4" selected>4 paragraf</option>
+          <option value="5">5 paragraf</option>
+          <option value="6">6 paragraf</option>
+          <option value="7">7 paragraf</option>
+        </select>
+      </div>
+      <div class="field" style="flex: 1; min-width: 180px;">
+        <label>Jumlah opsi judul</label>
+        <select id="jmlJudul">
+          <option value="3">3 judul</option>
+          <option value="5" selected>5 judul</option>
+          <option value="7">7 judul</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="btn-generate" id="btnGenerate" onclick="generate()">
+      <div class="loader" id="loader"></div>
+      <span id="btnText">✦ Buat Artikel Sekarang</span>
+    </button>
+  </div>
+
+  <!-- OUTPUT -->
+  <div id="output-section">
+
+    <div class="form-section">
+      <div class="section-label">Pilihan Judul</div>
+      <div class="judul-list" id="judul-list"></div>
+    </div>
+
+    <div class="form-section">
+      <div class="section-label">Artikel</div>
+      <div class="artikel-box">
+        <div class="artikel-title" id="artikel-title"></div>
+        <div class="artikel-body" id="artikel-body"></div>
+      </div>
+      <div class="action-bar">
+        <button class="btn-action btn-copy" onclick="copyArtikel()">📋 Salin Artikel</button>
+        <button class="btn-action btn-download" onclick="downloadTxt()">⬇ Unduh .txt</button>
+        <button class="btn-action btn-regen" onclick="generate()">↻ Generate Ulang</button>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>Generator Artikel Buletin &nbsp;<span>✦</span>&nbsp; KPPBC TMP A Pasuruan</footer>
+</div>
+
+<div class="toast" id="toast">✓ <span id="toast-msg">Disalin!</span></div>
+
+<script>
+const API_URL = "https://api.anthropic.com/v1/messages";
+const API_KEY = "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";
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function setLoading(on) {
+  document.getElementById('loader').style.display = on ? 'block' : 'none';
+  document.getElementById('btnText').textContent = on ? 'Sedang membuat artikel...' : '✦ Buat Artikel Sekarang';
+  document.getElementById('btnGenerate').disabled = on;
+}
+
+function getStyle() {
+  const v = document.querySelector('input[name="style"]:checked').value;
+  if (v === 'softsellinghumaniora') return 'soft-selling humanis: hangat, reflektif, membangun citra institusi secara halus, tidak promosi secara langsung, menggunakan diksi sastrawi yang mengalir namun tetap informatif';
+  if (v === 'formal') return 'berita formal: lugas, baku, menggunakan piramida terbalik, sesuai standar rilis pers resmi pemerintah';
+  return 'feature naratif: bercerita seperti jurnalistik mendalam, deskriptif, membangun suasana dengan detail vivid, pembuka yang kuat';
+}
+
+async function generate() {
+  const what = document.getElementById('what').value.trim();
+  const who = document.getElementById('who').value.trim();
+  const when = document.getElementById('when').value.trim();
+  const where = document.getElementById('where').value.trim();
+  const target = document.getElementById('target').value.trim();
+  const why = document.getElementById('why').value.trim();
+  const how = document.getElementById('how').value.trim();
+  const quote = document.getElementById('quote').value.trim();
+  const paragraf = document.getElementById('paragraf').value;
+  const jmlJudul = document.getElementById('jmlJudul').value;
+  const style = getStyle();
+
+  if (!what || !who || !when || !where || !why || !how) {
+    showToast('⚠ Mohon isi minimal: Apa, Siapa, Kapan, Di mana, Mengapa, Bagaimana');
+    return;
+  }
+
+  setLoading(true);
+
+  const prompt = `Kamu adalah penulis dan editor buletin internal Bea Cukai Pasuruan (KPPBC TMP A Pasuruan). 
+Buatkan artikel buletin berdasarkan data berikut dengan gaya ${style}.
+
+Data 5W+1H:
+- APA: ${what}
+- SIAPA: ${who}
+- KAPAN: ${when}
+- DI MANA: ${where}
+- SASARAN/PENERIMA: ${target || '-'}
+- MENGAPA: ${why}
+- BAGAIMANA: ${how}
+${quote ? `- KUTIPAN/PESAN: ${quote}` : ''}
+
+Ketentuan:
+1. Buat ${paragraf} paragraf artikel yang menarik dan mengalir
+2. Setiap paragraf minimal 3 kalimat
+3. Artikel TIDAK boleh menggunakan tanda dash/em-dash (—)
+4. Jangan gunakan bullet point, gunakan prosa mengalir
+5. Sertakan konteks institusi Bea Cukai Pasuruan secara natural
+6. Buat ${jmlJudul} alternatif judul yang kreatif dan variatif (sebagian bernuansa puitis, sebagian to-the-point)
+
+Format respons HARUS dalam JSON berikut (tanpa markdown, tanpa backtick):
+{
+  "judul_utama": "judul yang paling direkomendasikan",
+  "judul_alternatif": ["judul 1", "judul 2", "judul 3"...],
+  "artikel": "isi artikel lengkap, pisahkan paragraf dengan karakter newline ganda (\\n\\n)"
+}`;
+
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': API_KEY,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-5',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    const data = await res.json();
+    const raw = data.content.map(i => i.text || '').join('');
+    const clean = raw.replace(/```json|```/g, '').trim();
+    const parsed = JSON.parse(clean);
+
+    renderOutput(parsed);
+    setLoading(false);
+    document.getElementById('output-section').style.display = 'block';
+    document.getElementById('output-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  } catch (err) {
+    setLoading(false);
+    showToast('⚠ Terjadi kesalahan. Coba lagi.');
+    console.error(err);
+  }
+}
+
+function renderOutput(data) {
+  // Judul utama
+  document.getElementById('artikel-title').textContent = data.judul_utama;
+
+  // Judul alternatif
+  const list = document.getElementById('judul-list');
+  const allJudul = [data.judul_utama, ...(data.judul_alternatif || [])];
+  // deduplicate
+  const unique = [...new Set(allJudul)];
+  list.innerHTML = unique.map(j => `
+    <div class="judul-item" onclick="pilihJudul(this, '${j.replace(/'/g, "\\'")}')">
+      <span>${j}</span>
+      <div class="copy-icon">📋</div>
+    </div>
+  `).join('');
+
+  // Artikel body
+  const body = document.getElementById('artikel-body');
+  const paragraphs = data.artikel.split(/\n\n+/).filter(p => p.trim());
+  body.innerHTML = paragraphs.map(p => `<p>${p.trim()}</p>`).join('');
+}
+
+function pilihJudul(el, judul) {
+  document.getElementById('artikel-title').textContent = judul;
+  // highlight
+  document.querySelectorAll('.judul-item').forEach(i => i.style.borderColor = '');
+  el.style.borderColor = 'var(--gold)';
+  showToast('Judul dipilih!');
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function copyArtikel() {
+  const title = document.getElementById('artikel-title').textContent;
+  const body = document.getElementById('artikel-body').innerText;
+  const full = `${title}\n\n${body}`;
+  navigator.clipboard.writeText(full).then(() => showToast('Artikel disalin ke clipboard!'));
+}
+
+function downloadTxt() {
+  const title = document.getElementById('artikel-title').textContent;
+  const body = document.getElementById('artikel-body').innerText;
+  const content = `${title}\n${'='.repeat(title.length)}\n\n${body}`;
+  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `artikel-${Date.now()}.txt`;
+  a.click();
+  showToast('File berhasil diunduh!');
+}
+</script>
+</body>
+</html>
