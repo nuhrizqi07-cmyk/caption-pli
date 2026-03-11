@@ -5,742 +5,314 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Generator Artikel — Bea Cukai Pasuruan</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- React via CDN — tidak perlu build tools -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <style>
-  :root {
-    --navy: #0a1628;
-    --navy-mid: #122040;
-    --gold: #c9a84c;
-    --gold-light: #e8c97a;
-    --cream: #f5f0e8;
-    --cream-dark: #ede6d6;
-    --text: #1a1a2e;
-    --text-muted: #6b6b7a;
-    --white: #ffffff;
-    --success: #2d7a4f;
-    --border: rgba(201,168,76,0.25);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--navy);
-    color: var(--white);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* BACKGROUND TEXTURE */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(201,168,76,0.08) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(201,168,76,0.05) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 24px;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* HEADER */
-  header {
-    padding: 48px 0 32px;
-    text-align: center;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 40px;
-  }
-
-  .header-badge {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    border: 1px solid var(--border);
-    padding: 6px 16px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    background: rgba(201,168,76,0.08);
-  }
-
-  header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 4vw, 42px);
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--white);
-    margin-bottom: 12px;
-  }
-
-  header h1 span {
-    color: var(--gold);
-    font-style: italic;
-  }
-
-  header p {
-    font-size: 15px;
-    color: rgba(255,255,255,0.55);
-    max-width: 480px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-
-  /* FORM SECTION */
-  .form-section {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 36px;
-    margin-bottom: 28px;
-    backdrop-filter: blur(10px);
-  }
-
-  .section-label {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-  }
-
-  .form-grid .full {
-    grid-column: 1 / -1;
-  }
-
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  label {
-    font-size: 13px;
-    font-weight: 500;
-    color: rgba(255,255,255,0.7);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  label .w-tag {
-    font-size: 10px;
-    font-weight: 700;
-    color: var(--gold);
-    background: rgba(201,168,76,0.15);
-    padding: 2px 7px;
-    border-radius: 4px;
-    letter-spacing: 0.05em;
-  }
-
-  input, textarea, select {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 10px;
-    padding: 12px 16px;
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    transition: all 0.2s;
-    outline: none;
-    resize: none;
-  }
-
-  input::placeholder, textarea::placeholder {
-    color: rgba(255,255,255,0.25);
-  }
-
-  input:focus, textarea:focus, select:focus {
-    border-color: var(--gold);
-    background: rgba(201,168,76,0.07);
-    box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
-  }
-
-  select option {
-    background: var(--navy-mid);
-    color: var(--white);
-  }
-
-  textarea { min-height: 90px; line-height: 1.6; }
-  textarea.tall { min-height: 130px; }
-
-  /* STYLE OPTIONS */
-  .style-options {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .style-opt {
-    flex: 1;
-    min-width: 140px;
-    padding: 14px 16px;
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: rgba(255,255,255,0.04);
-    text-align: center;
-  }
-
-  .style-opt input[type="radio"] { display: none; }
-
-  .style-opt:has(input:checked) {
-    border-color: var(--gold);
-    background: rgba(201,168,76,0.1);
-  }
-
-  .style-opt-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 4px;
-  }
-
-  .style-opt-desc {
-    font-size: 11px;
-    color: rgba(255,255,255,0.45);
-    line-height: 1.4;
-  }
-
-  /* GENERATE BUTTON */
-  .btn-generate {
-    width: 100%;
-    padding: 18px;
-    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-    color: var(--navy);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.25s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 8px;
-  }
-
-  .btn-generate:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(201,168,76,0.35);
-  }
-
-  .btn-generate:active { transform: translateY(0); }
-  .btn-generate:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-  }
-
-  /* LOADING */
-  .loader {
-    width: 18px; height: 18px;
-    border: 2px solid rgba(10,22,40,0.3);
-    border-top-color: var(--navy);
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    display: none;
-  }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  /* OUTPUT SECTION */
-  #output-section {
-    display: none;
-    animation: fadeUp 0.5s ease;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* JUDUL ALTERNATIF */
-  .judul-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 8px;
-  }
-
-  .judul-item {
-    padding: 14px 18px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    font-family: 'Playfair Display', serif;
-    font-size: 15px;
-    color: var(--white);
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    line-height: 1.4;
-  }
-
-  .judul-item:hover {
-    border-color: var(--gold);
-    background: rgba(201,168,76,0.07);
-  }
-
-  .judul-item .copy-icon {
-    flex-shrink: 0;
-    width: 28px; height: 28px;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(201,168,76,0.15);
-    border-radius: 6px;
-    font-size: 12px;
-    opacity: 0.6;
-    transition: opacity 0.2s;
-  }
-
-  .judul-item:hover .copy-icon { opacity: 1; }
-
-  /* ARTIKEL OUTPUT */
-  .artikel-box {
-    background: var(--cream);
-    border-radius: 14px;
-    padding: 40px;
-    color: var(--text);
-  }
-
-  .artikel-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--navy);
-    line-height: 1.35;
-    margin-bottom: 24px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid var(--cream-dark);
-  }
-
-  .artikel-body {
-    font-size: 15px;
-    line-height: 1.85;
-    color: #2a2a3a;
-    white-space: pre-wrap;
-  }
-
-  .artikel-body p {
-    margin-bottom: 18px;
-    text-align: justify;
-  }
-
-  /* ACTION BUTTONS */
-  .action-bar {
-    display: flex;
-    gap: 12px;
-    margin-top: 20px;
-    flex-wrap: wrap;
-  }
-
-  .btn-action {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    border: none;
-  }
-
-  .btn-copy {
-    background: rgba(201,168,76,0.15);
-    color: var(--gold-light);
-    border: 1px solid var(--border);
-  }
-
-  .btn-copy:hover { background: rgba(201,168,76,0.25); }
-
-  .btn-download {
-    background: rgba(255,255,255,0.07);
-    color: rgba(255,255,255,0.8);
-    border: 1px solid rgba(255,255,255,0.12);
-  }
-
-  .btn-download:hover { background: rgba(255,255,255,0.12); }
-
-  .btn-regen {
-    background: transparent;
-    color: rgba(255,255,255,0.5);
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-
-  .btn-regen:hover { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.25); }
-
-  /* TOAST */
-  .toast {
-    position: fixed;
-    bottom: 32px;
-    right: 32px;
-    background: var(--success);
-    color: white;
-    padding: 14px 22px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transform: translateY(80px);
-    opacity: 0;
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-    z-index: 999;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-  }
-
-  .toast.show {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  /* FOOTER */
-  footer {
-    text-align: center;
-    padding: 40px 0 32px;
-    color: rgba(255,255,255,0.2);
-    font-size: 12px;
-    letter-spacing: 0.05em;
-  }
-
-  footer span { color: var(--gold); opacity: 0.5; }
-
-  /* RESPONSIVE */
-  @media (max-width: 600px) {
-    .form-grid { grid-template-columns: 1fr; }
-    .form-grid .full { grid-column: 1; }
-    .form-section { padding: 24px 20px; }
-    .artikel-box { padding: 24px 20px; }
-    .action-bar { flex-direction: column; }
-    .btn-action { justify-content: center; }
-  }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a1628; font-family: 'DM Sans', sans-serif; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a1628; }
+::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+select option { background: #122040; color: #fff; }
+input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.25); }
+input:focus, textarea:focus, select:focus {
+  border-color: #c9a84c !important;
+  background: rgba(201,168,76,0.07) !important;
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+  outline: none;
+}
+@media (max-width: 600px) {
+  .form-grid { grid-template-columns: 1fr !important; }
+  .full-col { grid-column: 1 !important; }
+  .style-wrap { flex-direction: column !important; }
+  .action-bar { flex-direction: column !important; }
+  .artikel-box { padding: 24px 18px !important; }
+}
 </style>
 </head>
 <body>
+<div id="root"></div>
 
-<div class="container">
+<script type="text/babel">
+const { useState } = React;
 
-  <header>
-    <div class="header-badge">✦ Bea Cukai Pasuruan</div>
-    <h1>Generator <span>Artikel</span> Buletin</h1>
-    <p>Masukkan data 5W+1H, sistem akan menghasilkan artikel siap terbit secara otomatis.</p>
-  </header>
+const STYLES = [
+  { value: "softsellinghumaniora", label: "Soft-Selling Humanis", desc: "Hangat, reflektif, membangun citra institusi secara halus" },
+  { value: "formal", label: "Berita Formal", desc: "Lugas, informatif, cocok untuk rilis resmi" },
+  { value: "feature", label: "Feature / Narasi", desc: "Bercerita, deskriptif, nuansa jurnalistik mendalam" },
+];
 
-  <!-- FORM -->
-  <div class="form-section">
-    <div class="section-label">Informasi Berita</div>
-    <div class="form-grid">
+const FIELDS = [
+  { id: "what",   tag: "WHAT",  q: "Apa kegiatan yang dilaksanakan?",    full: true,  ph: "cth: Bakti Sosial Pagi Cetar, pembagian takjil, pembinaan mental..." },
+  { id: "who",    tag: "WHO",   q: "Siapa penyelenggara?",               full: false, ph: "cth: KPPBC TMP A Pasuruan" },
+  { id: "when",   tag: "WHEN",  q: "Kapan dilaksanakan?",                full: false, ph: "cth: Rabu, 11 Maret 2026" },
+  { id: "where",  tag: "WHERE", q: "Di mana lokasi kegiatan?",           full: false, ph: "cth: Balai Desa Pandean, Pasuruan" },
+  { id: "target", tag: "WHO",   q: "Sasaran / penerima manfaat?",        full: false, ph: "cth: warga sekitar, pegawai..." },
+  { id: "why",    tag: "WHY",   q: "Mengapa kegiatan ini dilaksanakan?", full: true,  tall: true, ph: "cth: Dalam rangka Ramadhan 1447 H, mempererat silaturahmi..." },
+  { id: "how",    tag: "HOW",   q: "Bagaimana kegiatan berlangsung?",    full: true,  tall: true, ph: "cth: Dibagikan 70 paket, dihadiri 100 warga, dimulai pukul 08.00..." },
+  { id: "quote",  tag: "OPT",   q: "Kutipan / Pesan penting (opsional)", full: true,  ph: "cth: pernyataan Kepala Kantor, tema kegiatan..." },
+];
 
-      <div class="field full">
-        <label><span class="w-tag">WHAT</span> Apa kegiatan yang dilaksanakan?</label>
-        <input type="text" id="what" placeholder="cth: Bakti Sosial 'Pagi Cetar', pembagian takjil, pembinaan mental...">
-      </div>
-
-      <div class="field">
-        <label><span class="w-tag">WHO</span> Siapa yang terlibat / penyelenggara?</label>
-        <input type="text" id="who" placeholder="cth: KPPBC TMP A Pasuruan, pegawai Bea Cukai...">
-      </div>
-
-      <div class="field">
-        <label><span class="w-tag">WHEN</span> Kapan dilaksanakan?</label>
-        <input type="text" id="when" placeholder="cth: Rabu, 11 Maret 2026">
-      </div>
-
-      <div class="field">
-        <label><span class="w-tag">WHERE</span> Di mana lokasi kegiatan?</label>
-        <input type="text" id="where" placeholder="cth: Depan Kantor Bea Cukai Pasuruan, kawasan PIER...">
-      </div>
-
-      <div class="field">
-        <label><span class="w-tag">WHO</span> Siapa sasaran / penerima manfaat?</label>
-        <input type="text" id="target" placeholder="cth: warga sekitar PIER, pegawai, masyarakat umum...">
-      </div>
-
-      <div class="field full">
-        <label><span class="w-tag">WHY</span> Mengapa kegiatan ini dilaksanakan?</label>
-        <textarea id="why" placeholder="cth: Dalam rangka Ramadhan 1447 H, mempererat silaturahmi, bentuk kepedulian sosial..."></textarea>
-      </div>
-
-      <div class="field full">
-        <label><span class="w-tag">HOW</span> Bagaimana kegiatan berlangsung? (detail, jumlah, rangkaian acara)</label>
-        <textarea class="tall" id="how" placeholder="cth: Dibagikan 70 paket sembako, dihadiri 100 warga, dimulai pukul 08.00, dihadiri Kepala Kantor..."></textarea>
-      </div>
-
-      <div class="field full">
-        <label>Kutipan / Pesan penting (opsional)</label>
-        <input type="text" id="quote" placeholder="cth: pernyataan Kepala Kantor, tema kegiatan, tagline...">
-      </div>
-
-    </div>
-  </div>
-
-  <!-- STYLE -->
-  <div class="form-section">
-    <div class="section-label">Gaya Penulisan</div>
-    <div class="style-options">
-      <label class="style-opt">
-        <input type="radio" name="style" value="softsellinghumaniora" checked>
-        <div class="style-opt-title">Soft-Selling Humanis</div>
-        <div class="style-opt-desc">Hangat, reflektif, membangun citra institusi secara halus</div>
-      </label>
-      <label class="style-opt">
-        <input type="radio" name="style" value="formal">
-        <div class="style-opt-title">Berita Formal</div>
-        <div class="style-opt-desc">Lugas, informatif, cocok untuk rilis resmi</div>
-      </label>
-      <label class="style-opt">
-        <input type="radio" name="style" value="feature">
-        <div class="style-opt-title">Feature / Narasi</div>
-        <div class="style-opt-desc">Bercerita, deskriptif, nuansa jurnalistik mendalam</div>
-      </label>
-    </div>
-
-    <div style="margin-top: 20px; display: flex; gap: 16px; flex-wrap: wrap;">
-      <div class="field" style="flex: 1; min-width: 180px;">
-        <label>Jumlah paragraf</label>
-        <select id="paragraf">
-          <option value="3">3 paragraf</option>
-          <option value="4" selected>4 paragraf</option>
-          <option value="5">5 paragraf</option>
-          <option value="6">6 paragraf</option>
-          <option value="7">7 paragraf</option>
-        </select>
-      </div>
-      <div class="field" style="flex: 1; min-width: 180px;">
-        <label>Jumlah opsi judul</label>
-        <select id="jmlJudul">
-          <option value="3">3 judul</option>
-          <option value="5" selected>5 judul</option>
-          <option value="7">7 judul</option>
-        </select>
-      </div>
-    </div>
-
-    <button class="btn-generate" id="btnGenerate" onclick="generate()">
-      <div class="loader" id="loader"></div>
-      <span id="btnText">✦ Buat Artikel Sekarang</span>
-    </button>
-  </div>
-
-  <!-- OUTPUT -->
-  <div id="output-section">
-
-    <div class="form-section">
-      <div class="section-label">Pilihan Judul</div>
-      <div class="judul-list" id="judul-list"></div>
-    </div>
-
-    <div class="form-section">
-      <div class="section-label">Artikel</div>
-      <div class="artikel-box">
-        <div class="artikel-title" id="artikel-title"></div>
-        <div class="artikel-body" id="artikel-body"></div>
-      </div>
-      <div class="action-bar">
-        <button class="btn-action btn-copy" onclick="copyArtikel()">📋 Salin Artikel</button>
-        <button class="btn-action btn-download" onclick="downloadTxt()">⬇ Unduh .txt</button>
-        <button class="btn-action btn-regen" onclick="generate()">↻ Generate Ulang</button>
-      </div>
-    </div>
-
-  </div>
-
-  <footer>Generator Artikel Buletin &nbsp;<span>✦</span>&nbsp; KPPBC TMP A Pasuruan</footer>
-</div>
-
-<div class="toast" id="toast">✓ <span id="toast-msg">Disalin!</span></div>
-
-<script>
-const API_URL = "https://api.anthropic.com/v1/messages";
-const API_KEY = "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";
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  document.getElementById('toast-msg').textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+function getStyleDesc(v) {
+  if (v === "softsellinghumaniora") return "soft-selling humanis: hangat, reflektif, membangun citra institusi secara halus, tidak promosi secara langsung, menggunakan diksi sastrawi yang mengalir namun tetap informatif";
+  if (v === "formal") return "berita formal: lugas, baku, menggunakan piramida terbalik, sesuai standar rilis pers resmi pemerintah";
+  return "feature naratif: bercerita seperti jurnalistik mendalam, deskriptif, membangun suasana dengan detail vivid, pembuka yang kuat";
 }
 
-function setLoading(on) {
-  document.getElementById('loader').style.display = on ? 'block' : 'none';
-  document.getElementById('btnText').textContent = on ? 'Sedang membuat artikel...' : '✦ Buat Artikel Sekarang';
-  document.getElementById('btnGenerate').disabled = on;
-}
+function App() {
+  const [form, setForm] = useState({ what:"", who:"", when:"", where:"", target:"", why:"", how:"", quote:"" });
+  const [style, setStyle] = useState("softsellinghumaniora");
+  const [paragraf, setParagraf] = useState("4");
+  const [jmlJudul, setJmlJudul] = useState("5");
+  const [loading, setLoading] = useState(false);
+  const [output, setOutput] = useState(null);
+  const [selectedJudul, setSelectedJudul] = useState("");
+  const [toast, setToast] = useState("");
+  const [apiKey, setApiKey] = useState("");
+  const [showKey, setShowKey] = useState(false);
+  const [keyInput, setKeyInput] = useState("");
 
-function getStyle() {
-  const v = document.querySelector('input[name="style"]:checked').value;
-  if (v === 'softsellinghumaniora') return 'soft-selling humanis: hangat, reflektif, membangun citra institusi secara halus, tidak promosi secara langsung, menggunakan diksi sastrawi yang mengalir namun tetap informatif';
-  if (v === 'formal') return 'berita formal: lugas, baku, menggunakan piramida terbalik, sesuai standar rilis pers resmi pemerintah';
-  return 'feature naratif: bercerita seperti jurnalistik mendalam, deskriptif, membangun suasana dengan detail vivid, pembuka yang kuat';
-}
+  const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(""), 2800); };
+  const upd = (f) => (e) => setForm({ ...form, [f]: e.target.value });
 
-async function generate() {
-  const what = document.getElementById('what').value.trim();
-  const who = document.getElementById('who').value.trim();
-  const when = document.getElementById('when').value.trim();
-  const where = document.getElementById('where').value.trim();
-  const target = document.getElementById('target').value.trim();
-  const why = document.getElementById('why').value.trim();
-  const how = document.getElementById('how').value.trim();
-  const quote = document.getElementById('quote').value.trim();
-  const paragraf = document.getElementById('paragraf').value;
-  const jmlJudul = document.getElementById('jmlJudul').value;
-  const style = getStyle();
+  const inputStyle = {
+    width: "100%", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)",
+    borderRadius: 10, padding: "11px 16px", color: "#fff", fontSize: 14, transition: "all 0.2s",
+    fontFamily: "'DM Sans', sans-serif"
+  };
 
-  if (!what || !who || !when || !where || !why || !how) {
-    showToast('⚠ Mohon isi minimal: Apa, Siapa, Kapan, Di mana, Mengapa, Bagaimana');
-    return;
-  }
+  const generate = async () => {
+    const req = ["what","who","when","where","why","how"];
+    if (req.some(f => !form[f].trim())) { showToast("⚠ Mohon isi semua field yang wajib"); return; }
+    if (!apiKey) { setShowKey(true); showToast("⚠ Masukkan API key terlebih dahulu"); return; }
 
-  setLoading(true);
-
-  const prompt = `Kamu adalah penulis dan editor buletin internal Bea Cukai Pasuruan (KPPBC TMP A Pasuruan). 
-Buatkan artikel buletin berdasarkan data berikut dengan gaya ${style}.
+    setLoading(true);
+    const prompt = `Kamu adalah penulis dan editor buletin internal Bea Cukai Pasuruan (KPPBC TMP A Pasuruan).
+Buatkan artikel buletin berdasarkan data berikut dengan gaya ${getStyleDesc(style)}.
 
 Data 5W+1H:
-- APA: ${what}
-- SIAPA: ${who}
-- KAPAN: ${when}
-- DI MANA: ${where}
-- SASARAN/PENERIMA: ${target || '-'}
-- MENGAPA: ${why}
-- BAGAIMANA: ${how}
-${quote ? `- KUTIPAN/PESAN: ${quote}` : ''}
+- APA: ${form.what}
+- SIAPA: ${form.who}
+- KAPAN: ${form.when}
+- DI MANA: ${form.where}
+- SASARAN/PENERIMA: ${form.target || "-"}
+- MENGAPA: ${form.why}
+- BAGAIMANA: ${form.how}
+${form.quote ? `- KUTIPAN/PESAN: ${form.quote}` : ""}
 
 Ketentuan:
 1. Buat ${paragraf} paragraf artikel yang menarik dan mengalir
 2. Setiap paragraf minimal 3 kalimat
-3. Artikel TIDAK boleh menggunakan tanda dash/em-dash (—)
+3. DILARANG menggunakan tanda dash atau em-dash (-)
 4. Jangan gunakan bullet point, gunakan prosa mengalir
 5. Sertakan konteks institusi Bea Cukai Pasuruan secara natural
-6. Buat ${jmlJudul} alternatif judul yang kreatif dan variatif (sebagian bernuansa puitis, sebagian to-the-point)
+6. Buat ${jmlJudul} alternatif judul yang kreatif dan variatif
 
-Format respons HARUS dalam JSON berikut (tanpa markdown, tanpa backtick):
-{
-  "judul_utama": "judul yang paling direkomendasikan",
-  "judul_alternatif": ["judul 1", "judul 2", "judul 3"...],
-  "artikel": "isi artikel lengkap, pisahkan paragraf dengan karakter newline ganda (\\n\\n)"
-}`;
+Balas HANYA dengan JSON valid berikut, tanpa teks lain, tanpa markdown:
+{"judul_utama":"...","judul_alternatif":["...","..."],"artikel":"paragraf1\\n\\nparagraf2\\n\\nparagraf3"}`;
 
-  try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': API_KEY,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 2048,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
+    try {
+      const res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": apiKey,
+          "anthropic-version": "2023-06-01",
+          "anthropic-dangerous-direct-browser-access": "true",
+        },
+        body: JSON.stringify({
+          model: "claude-haiku-4-5-20251001",
+          max_tokens: 2048,
+          messages: [{ role: "user", content: prompt }]
+        })
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error.message);
+      const raw = data.content.map(i => i.text || "").join("");
+      const clean = raw.replace(/```json|```/g, "").trim();
+      const parsed = JSON.parse(clean);
+      setOutput(parsed);
+      setSelectedJudul(parsed.judul_utama);
+      setLoading(false);
+      setTimeout(() => document.getElementById("output-area")?.scrollIntoView({ behavior: "smooth" }), 100);
+    } catch (err) {
+      setLoading(false);
+      showToast("⚠ Error: " + err.message);
+    }
+  };
 
-    const data = await res.json();
-    const raw = data.content.map(i => i.text || '').join('');
-    const clean = raw.replace(/```json|```/g, '').trim();
-    const parsed = JSON.parse(clean);
+  const allJudul = output ? [...new Set([output.judul_utama, ...(output.judul_alternatif || [])])] : [];
 
-    renderOutput(parsed);
-    setLoading(false);
-    document.getElementById('output-section').style.display = 'block';
-    document.getElementById('output-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const copyArtikel = () => {
+    navigator.clipboard.writeText(`${selectedJudul}\n\n${output.artikel}`);
+    showToast("✓ Artikel berhasil disalin!");
+  };
 
-  } catch (err) {
-    setLoading(false);
-    showToast('⚠ Terjadi kesalahan. Coba lagi.');
-    console.error(err);
-  }
-}
+  const downloadTxt = () => {
+    const blob = new Blob([`${selectedJudul}\n${"=".repeat(60)}\n\n${output.artikel}`], { type: "text/plain;charset=utf-8" });
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
+    a.download = `artikel-${Date.now()}.txt`; a.click();
+    showToast("✓ File berhasil diunduh!");
+  };
 
-function renderOutput(data) {
-  // Judul utama
-  document.getElementById('artikel-title').textContent = data.judul_utama;
+  // shared styles
+  const card = { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(201,168,76,0.25)", borderRadius: 14, padding: 28 };
+  const sectionLabel = { fontSize: 11, fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "#c9a84c", marginBottom: 20, display: "flex", alignItems: "center", gap: 12 };
+  const labelLine = { flex: 1, height: 1, background: "rgba(201,168,76,0.2)" };
 
-  // Judul alternatif
-  const list = document.getElementById('judul-list');
-  const allJudul = [data.judul_utama, ...(data.judul_alternatif || [])];
-  // deduplicate
-  const unique = [...new Set(allJudul)];
-  list.innerHTML = unique.map(j => `
-    <div class="judul-item" onclick="pilihJudul(this, '${j.replace(/'/g, "\\'")}')">
-      <span>${j}</span>
-      <div class="copy-icon">📋</div>
+  return (
+    <div style={{ minHeight: "100vh", color: "#fff", paddingBottom: 60 }}>
+
+      {/* BG */}
+      <div style={{ position: "fixed", inset: 0, background: "radial-gradient(ellipse 80% 50% at 20% 20%, rgba(201,168,76,0.07) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 80%, rgba(201,168,76,0.04) 0%, transparent 50%)", pointerEvents: "none" }} />
+
+      {/* HEADER */}
+      <div style={{ textAlign: "center", padding: "52px 24px 36px", borderBottom: "1px solid rgba(201,168,76,0.2)", position: "relative" }}>
+        <div style={{ display: "inline-block", fontSize: 11, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#c9a84c", border: "1px solid rgba(201,168,76,0.3)", padding: "6px 18px", borderRadius: 20, marginBottom: 18, background: "rgba(201,168,76,0.08)" }}>
+          ✦ Bea Cukai Pasuruan
+        </div>
+        <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(26px,4vw,42px)", fontWeight: 700, margin: "0 0 14px", lineHeight: 1.2 }}>
+          Generator <span style={{ color: "#c9a84c", fontStyle: "italic" }}>Artikel</span> Buletin
+        </h1>
+        <p style={{ fontSize: 15, color: "rgba(255,255,255,0.5)", maxWidth: 480, margin: "0 auto", lineHeight: 1.65 }}>
+          Masukkan data 5W+1H, sistem akan menghasilkan artikel siap terbit secara otomatis.
+        </p>
+      </div>
+
+      <div style={{ maxWidth: 880, margin: "0 auto", padding: "0 20px", position: "relative" }}>
+
+        {/* API KEY */}
+        <div style={{ ...card, marginTop: 32 }}>
+          <div style={sectionLabel}>🔑 API Key Anthropic <div style={labelLine} /></div>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
+            <p style={{ fontSize: 13, color: apiKey ? "#6fcf97" : "rgba(255,255,255,0.4)", margin: 0 }}>
+              {apiKey ? "✓ API key aktif dan siap digunakan" : "Dapatkan API key di console.anthropic.com → API Keys"}
+            </p>
+            <button onClick={() => setShowKey(!showKey)}
+              style={{ background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.3)", color: "#e8c97a", borderRadius: 8, padding: "8px 16px", fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "'DM Sans',sans-serif" }}>
+              {apiKey ? "Ganti Key" : "Masukkan Key"}
+            </button>
+          </div>
+          {showKey && (
+            <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
+              <input type="password" placeholder="sk-ant-api03-..." value={keyInput} onChange={e => setKeyInput(e.target.value)}
+                style={{ ...inputStyle, flex: 1 }} />
+              <button onClick={() => { if (keyInput.trim()) { setApiKey(keyInput.trim()); setShowKey(false); setKeyInput(""); showToast("✓ API Key tersimpan!"); } }}
+                style={{ background: "linear-gradient(135deg,#c9a84c,#e8c97a)", color: "#0a1628", border: "none", borderRadius: 10, padding: "11px 22px", fontWeight: 700, fontSize: 13, cursor: "pointer", fontFamily: "'DM Sans',sans-serif", whiteSpace: "nowrap" }}>
+                Simpan
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* FORM */}
+        <div style={{ ...card, marginTop: 20 }}>
+          <div style={sectionLabel}>Informasi Berita (5W+1H) <div style={labelLine} /></div>
+          <div className="form-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+            {FIELDS.map(f => (
+              <div key={f.id} className={f.full ? "full-col" : ""} style={{ gridColumn: f.full ? "1/-1" : "auto" }}>
+                <label style={{ fontSize: 13, color: "rgba(255,255,255,0.65)", display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: "#c9a84c", background: "rgba(201,168,76,0.15)", padding: "2px 8px", borderRadius: 4, letterSpacing: "0.05em" }}>{f.tag}</span>
+                  {f.q}
+                </label>
+                {f.tall
+                  ? <textarea value={form[f.id]} onChange={upd(f.id)} placeholder={f.ph} rows={3} style={{ ...inputStyle, resize: "none", lineHeight: 1.6 }} />
+                  : <input value={form[f.id]} onChange={upd(f.id)} placeholder={f.ph} style={inputStyle} />
+                }
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* GAYA */}
+        <div style={{ ...card, marginTop: 20 }}>
+          <div style={sectionLabel}>Gaya Penulisan <div style={labelLine} /></div>
+          <div className="style-wrap" style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 20 }}>
+            {STYLES.map(s => (
+              <div key={s.value} onClick={() => setStyle(s.value)}
+                style={{ flex: 1, minWidth: 140, padding: "14px 16px", border: `1px solid ${style === s.value ? "#c9a84c" : "rgba(255,255,255,0.12)"}`, borderRadius: 10, cursor: "pointer", background: style === s.value ? "rgba(201,168,76,0.1)" : "rgba(255,255,255,0.04)", textAlign: "center", transition: "all 0.2s" }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: "#fff", marginBottom: 5 }}>{s.label}</div>
+                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.45)", lineHeight: 1.45 }}>{s.desc}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ display: "flex", gap: 16, flexWrap: "wrap", marginBottom: 24 }}>
+            {[["paragraf","Jumlah paragraf",paragraf,setParagraf,["3","4","5","6","7"].map(n=>({v:n,l:n+" paragraf"}))],
+              ["judul","Jumlah opsi judul",jmlJudul,setJmlJudul,["3","5","7"].map(n=>({v:n,l:n+" judul"}))]].map(([id,label,val,setter,opts]) => (
+              <div key={id} style={{ flex: 1, minWidth: 160 }}>
+                <label style={{ fontSize: 13, color: "rgba(255,255,255,0.65)", display: "block", marginBottom: 8 }}>{label}</label>
+                <select value={val} onChange={e => setter(e.target.value)} style={{ ...inputStyle, cursor: "pointer" }}>
+                  {opts.map(o => <option key={o.v} value={o.v}>{o.l}</option>)}
+                </select>
+              </div>
+            ))}
+          </div>
+          <button onClick={generate} disabled={loading}
+            style={{ width: "100%", padding: "18px", background: loading ? "rgba(201,168,76,0.35)" : "linear-gradient(135deg,#c9a84c,#e8c97a)", color: "#0a1628", border: "none", borderRadius: 12, fontSize: 15, fontWeight: 700, cursor: loading ? "not-allowed" : "pointer", letterSpacing: "0.04em", fontFamily: "'DM Sans',sans-serif", transition: "all 0.25s", display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
+            {loading ? <>⏳ Sedang membuat artikel...</> : <>✦ Buat Artikel Sekarang</>}
+          </button>
+        </div>
+
+        {/* OUTPUT */}
+        {output && (
+          <div id="output-area" style={{ marginTop: 20 }}>
+            {/* Judul */}
+            <div style={{ ...card, marginBottom: 20 }}>
+              <div style={sectionLabel}>Pilihan Judul <div style={labelLine} /></div>
+              {allJudul.map((j, i) => (
+                <div key={i} onClick={() => { setSelectedJudul(j); showToast("Judul dipilih!"); }}
+                  style={{ padding: "14px 18px", background: "rgba(255,255,255,0.04)", border: `1px solid ${selectedJudul === j ? "#c9a84c" : "rgba(201,168,76,0.2)"}`, borderRadius: 10, fontFamily: "'Playfair Display',serif", fontSize: 15, color: "#fff", cursor: "pointer", marginBottom: 10, display: "flex", justifyContent: "space-between", alignItems: "center", lineHeight: 1.45, transition: "all 0.2s" }}>
+                  <span>{j}</span>
+                  <span style={{ fontSize: 13, opacity: 0.5, flexShrink: 0, marginLeft: 12 }}>📋</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Artikel */}
+            <div style={card}>
+              <div style={sectionLabel}>Artikel <div style={labelLine} /></div>
+              <div className="artikel-box" style={{ background: "#f5f0e8", borderRadius: 12, padding: "40px 44px" }}>
+                <div style={{ fontFamily: "'Playfair Display',serif", fontSize: 21, fontWeight: 700, color: "#0a1628", lineHeight: 1.35, marginBottom: 24, paddingBottom: 20, borderBottom: "2px solid #ede6d6" }}>
+                  {selectedJudul}
+                </div>
+                {output.artikel.split(/\n\n+/).filter(p => p.trim()).map((p, i) => (
+                  <p key={i} style={{ fontSize: 15, lineHeight: 1.9, color: "#2a2a3a", marginBottom: 18, textAlign: "justify", fontFamily: "'DM Sans',sans-serif" }}>{p.trim()}</p>
+                ))}
+              </div>
+              <div className="action-bar" style={{ display: "flex", gap: 12, marginTop: 20, flexWrap: "wrap" }}>
+                <button onClick={copyArtikel} style={{ display: "flex", alignItems: "center", gap: 8, padding: "12px 22px", background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.3)", color: "#e8c97a", borderRadius: 10, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "'DM Sans',sans-serif" }}>
+                  📋 Salin Artikel
+                </button>
+                <button onClick={downloadTxt} style={{ display: "flex", alignItems: "center", gap: 8, padding: "12px 22px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.75)", borderRadius: 10, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "'DM Sans',sans-serif" }}>
+                  ⬇ Unduh .txt
+                </button>
+                <button onClick={generate} style={{ display: "flex", alignItems: "center", gap: 8, padding: "12px 22px", background: "transparent", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.45)", borderRadius: 10, fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "'DM Sans',sans-serif" }}>
+                  ↻ Generate Ulang
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* FOOTER */}
+      <div style={{ textAlign: "center", marginTop: 48, fontSize: 12, color: "rgba(255,255,255,0.18)", letterSpacing: "0.05em", position: "relative" }}>
+        Generator Artikel Buletin &nbsp;<span style={{ color: "#c9a84c", opacity: 0.4 }}>✦</span>&nbsp; KPPBC TMP A Pasuruan
+      </div>
+
+      {/* TOAST */}
+      {toast && (
+        <div style={{ position: "fixed", bottom: 32, right: 32, background: toast.startsWith("⚠") ? "#92400e" : "#065f46", color: "#fff", padding: "14px 24px", borderRadius: 10, fontSize: 14, fontWeight: 600, zIndex: 9999, boxShadow: "0 8px 32px rgba(0,0,0,0.4)", fontFamily: "'DM Sans',sans-serif", maxWidth: 320 }}>
+          {toast}
+        </div>
+      )}
     </div>
-  `).join('');
-
-  // Artikel body
-  const body = document.getElementById('artikel-body');
-  const paragraphs = data.artikel.split(/\n\n+/).filter(p => p.trim());
-  body.innerHTML = paragraphs.map(p => `<p>${p.trim()}</p>`).join('');
+  );
 }
 
-function pilihJudul(el, judul) {
-  document.getElementById('artikel-title').textContent = judul;
-  // highlight
-  document.querySelectorAll('.judul-item').forEach(i => i.style.borderColor = '');
-  el.style.borderColor = 'var(--gold)';
-  showToast('Judul dipilih!');
-  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
-
-function copyArtikel() {
-  const title = document.getElementById('artikel-title').textContent;
-  const body = document.getElementById('artikel-body').innerText;
-  const full = `${title}\n\n${body}`;
-  navigator.clipboard.writeText(full).then(() => showToast('Artikel disalin ke clipboard!'));
-}
-
-function downloadTxt() {
-  const title = document.getElementById('artikel-title').textContent;
-  const body = document.getElementById('artikel-body').innerText;
-  const content = `${title}\n${'='.repeat(title.length)}\n\n${body}`;
-  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `artikel-${Date.now()}.txt`;
-  a.click();
-  showToast('File berhasil diunduh!');
-}
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
 </script>
 </body>
 </html>
