@@ -70,7 +70,7 @@ function App() {
   const [output, setOutput] = useState(null);
   const [selectedJudul, setSelectedJudul] = useState("");
   const [toast, setToast] = useState("");
-  const [apiKey, setApiKey] = useState("");
+  const [apiKey, setApiKey] = useState(() => { try { return localStorage.getItem("bc_api_key") || ""; } catch(e) { return ""; } });
   const [showKey, setShowKey] = useState(false);
   const [keyInput, setKeyInput] = useState("");
 
@@ -199,7 +199,7 @@ Balas HANYA dengan JSON valid berikut, tanpa teks lain, tanpa markdown:
             <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
               <input type="password" placeholder="sk-ant-api03-..." value={keyInput} onChange={e => setKeyInput(e.target.value)}
                 style={{ ...inputStyle, flex: 1 }} />
-              <button onClick={() => { if (keyInput.trim()) { setApiKey(keyInput.trim()); setShowKey(false); setKeyInput(""); showToast("✓ API Key tersimpan!"); } }}
+              <button onClick={() => { if (keyInput.trim()) { const k = keyInput.trim(); setApiKey(k); try { localStorage.setItem("bc_api_key", k); } catch(e) {} setShowKey(false); setKeyInput(""); showToast("✓ API Key tersimpan permanen!"); } }}
                 style={{ background: "linear-gradient(135deg,#c9a84c,#e8c97a)", color: "#0a1628", border: "none", borderRadius: 10, padding: "11px 22px", fontWeight: 700, fontSize: 13, cursor: "pointer", fontFamily: "'DM Sans',sans-serif", whiteSpace: "nowrap" }}>
                 Simpan
               </button>
