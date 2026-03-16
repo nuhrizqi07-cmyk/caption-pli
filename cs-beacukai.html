@@ -1,0 +1,1473 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CS Kit — Bea Cukai Pasuruan</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy2: #0f2044;
+    --gold: #c9a227;
+    --gold2: #f0c94a;
+    --teal: #00b8a9;
+    --teal2: #00d4c2;
+    --red: #e63946;
+    --surface: #111d35;
+    --surface2: #162240;
+    --surface3: #1e2f54;
+    --border: rgba(201,162,39,0.18);
+    --text: #e8edf5;
+    --muted: #7a8aaa;
+    --white: #ffffff;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background grid texture */
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(201,162,39,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,162,39,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative; z-index:10;
+    background: linear-gradient(135deg, var(--navy2) 0%, #0b1e3d 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex; align-items: center; gap: 16px;
+    height: 64px;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.4);
+  }
+
+  .logo-badge {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800; color: var(--navy);
+    box-shadow: 0 0 20px rgba(201,162,39,0.4);
+    flex-shrink:0;
+  }
+
+  .header-title { flex:1; }
+  .header-title h1 { font-size: 15px; font-weight: 700; color: var(--white); letter-spacing:0.3px; }
+  .header-title p  { font-size: 11px; color: var(--gold); letter-spacing:1.2px; text-transform:uppercase; margin-top:1px; }
+
+  .header-badge {
+    background: rgba(0,184,169,0.15);
+    border: 1px solid rgba(0,184,169,0.3);
+    color: var(--teal2);
+    font-size: 11px; font-weight: 600;
+    padding: 4px 12px; border-radius: 20px;
+    letter-spacing:0.5px;
+  }
+
+  /* ── LAYOUT ── */
+  .app {
+    position: relative; z-index:1;
+    display: grid;
+    grid-template-columns: 260px 1fr 320px;
+    grid-template-rows: auto 1fr;
+    height: calc(100vh - 64px);
+  }
+
+  /* ── SEARCH BAR ── */
+  .search-bar {
+    grid-column: 1 / -1;
+    padding: 16px 24px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex; gap: 12px; align-items: center;
+  }
+
+  .search-wrap {
+    flex:1; position:relative;
+  }
+  .search-wrap input {
+    width:100%; background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 16px 10px 40px;
+    color: var(--text); font-family: inherit; font-size: 14px;
+    outline:none; transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .search-wrap input:focus {
+    border-color: rgba(201,162,39,0.5);
+    box-shadow: 0 0 0 3px rgba(201,162,39,0.08);
+  }
+  .search-wrap input::placeholder { color: var(--muted); }
+  .search-icon {
+    position:absolute; left:13px; top:50%; transform:translateY(-50%);
+    color: var(--muted); font-size:15px;
+  }
+
+  .stats-pill {
+    display:flex; gap:8px;
+  }
+  .pill {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 12px; color: var(--muted);
+    white-space:nowrap;
+  }
+  .pill span { color: var(--gold); font-weight:700; }
+
+  /* ── SIDEBAR KATEGORI ── */
+  .sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto; padding: 16px 0;
+  }
+  .sidebar::-webkit-scrollbar { width:4px; }
+  .sidebar::-webkit-scrollbar-track { background:transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--surface3); border-radius:4px; }
+
+  .sidebar-label {
+    font-size: 10px; font-weight: 700; letter-spacing:1.5px;
+    text-transform:uppercase; color: var(--muted);
+    padding: 8px 20px 6px;
+  }
+
+  .cat-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 20px; cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+    position: relative;
+  }
+  .cat-item:hover { background: var(--surface2); }
+  .cat-item.active {
+    background: rgba(201,162,39,0.1);
+    border-left-color: var(--gold);
+  }
+  .cat-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px; flex-shrink:0;
+  }
+  .cat-text { flex:1; min-width:0; }
+  .cat-name { font-size: 13px; font-weight: 600; color: var(--text); }
+  .cat-count {
+    font-size: 10px; font-weight: 700;
+    background: var(--surface3);
+    color: var(--muted);
+    padding: 2px 8px; border-radius: 20px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .cat-item.active .cat-count {
+    background: rgba(201,162,39,0.2);
+    color: var(--gold);
+  }
+
+  /* ── MAIN: TEMPLATE LIST ── */
+  .main {
+    overflow-y: auto;
+    background: var(--navy);
+  }
+  .main::-webkit-scrollbar { width:4px; }
+  .main::-webkit-scrollbar-track { background:transparent; }
+  .main::-webkit-scrollbar-thumb { background: var(--surface3); border-radius:4px; }
+
+  .main-inner { padding: 20px; display:flex; flex-direction:column; gap:10px; }
+
+  .section-head {
+    display:flex; align-items:center; gap:10px; margin-bottom:4px; margin-top:8px;
+  }
+  .section-head:first-child { margin-top:0; }
+  .section-head h2 { font-size:13px; font-weight:700; color:var(--muted); letter-spacing:1px; text-transform:uppercase; }
+  .section-line { flex:1; height:1px; background: var(--border); }
+
+  .tpl-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative; overflow:hidden;
+  }
+  .tpl-card::before {
+    content:''; position:absolute; left:0; top:0; bottom:0;
+    width:3px; background: transparent; transition: background 0.2s;
+  }
+  .tpl-card:hover { background: var(--surface2); border-color: rgba(201,162,39,0.3); transform: translateX(2px); }
+  .tpl-card:hover::before { background: var(--gold); }
+  .tpl-card.selected { background: var(--surface2); border-color: var(--teal); }
+  .tpl-card.selected::before { background: var(--teal); }
+
+  .tpl-top { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:6px; }
+  .tpl-title { font-size: 13px; font-weight: 700; color: var(--white); }
+  .tpl-tag {
+    font-size: 10px; font-weight: 600; letter-spacing:0.5px;
+    padding: 2px 8px; border-radius: 4px; white-space:nowrap; flex-shrink:0;
+  }
+  .tag-wa  { background: rgba(37,211,102,0.15); color:#25d366; border:1px solid rgba(37,211,102,0.2); }
+  .tag-ig  { background: rgba(225,48,108,0.15);  color:#e1306c; border:1px solid rgba(225,48,108,0.2); }
+  .tag-all { background: rgba(201,162,39,0.15);   color:var(--gold); border:1px solid rgba(201,162,39,0.2); }
+
+  .tpl-preview {
+    font-size: 12px; color: var(--muted); line-height: 1.5;
+    display: -webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+  }
+
+  /* ── PREVIEW PANEL ── */
+  .preview {
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    display:flex; flex-direction:column;
+    overflow:hidden;
+  }
+
+  .preview-head {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .preview-head h3 { font-size: 13px; font-weight:700; color:var(--white); margin-bottom:2px; }
+  .preview-head p  { font-size: 11px; color: var(--muted); }
+
+  .preview-body {
+    flex:1; overflow-y:auto; padding: 20px;
+  }
+  .preview-body::-webkit-scrollbar { width:4px; }
+  .preview-body::-webkit-scrollbar-track { background:transparent; }
+  .preview-body::-webkit-scrollbar-thumb { background: var(--surface3); border-radius:4px; }
+
+  .preview-empty {
+    height:100%; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:12px;
+    color: var(--muted);
+  }
+  .preview-empty .icon { font-size:40px; opacity:0.3; }
+  .preview-empty p { font-size:13px; text-align:center; line-height:1.6; }
+
+  .bubble-wrap {
+    background: #e5ddd5;
+    border-radius: 12px; overflow:hidden;
+    margin-bottom:16px;
+  }
+  .bubble-header {
+    background: #075e54;
+    padding: 10px 14px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .bubble-avatar {
+    width:32px; height:32px; border-radius:50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; color:var(--navy); font-weight:800;
+  }
+  .bubble-name { font-size:13px; font-weight:600; color:#fff; }
+  .bubble-sub  { font-size:10px; color:rgba(255,255,255,0.7); }
+
+  .bubble-content { padding: 12px; }
+  .bubble {
+    background: #fff;
+    border-radius: 0 8px 8px 8px;
+    padding: 10px 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    max-width:90%;
+    margin-bottom: 4px;
+  }
+  .bubble p {
+    font-size: 13px; color: #303030; line-height:1.6;
+    white-space: pre-wrap; font-family: inherit;
+  }
+  .bubble-time { font-size: 10px; color: #999; text-align:right; margin-top:4px; }
+
+  .var-section {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding:14px; margin-bottom:16px;
+  }
+  .var-title { font-size:11px; font-weight:700; color:var(--gold); letter-spacing:1px; text-transform:uppercase; margin-bottom:10px; }
+  .var-grid { display:flex; flex-direction:column; gap:8px; }
+  .var-row { display:flex; flex-direction:column; gap:4px; }
+  .var-label { font-size:11px; color:var(--muted); font-weight:600; }
+  .var-input {
+    background: var(--navy); border:1px solid var(--border);
+    border-radius:6px; padding:7px 10px;
+    color:var(--text); font-family:'JetBrains Mono',monospace; font-size:12px;
+    outline:none; transition: border-color 0.2s;
+    width:100%;
+  }
+  .var-input:focus { border-color: var(--teal); }
+
+  .preview-footer {
+    padding: 14px 20px;
+    border-top: 1px solid var(--border);
+    background: var(--surface2);
+    display:flex; gap:8px;
+  }
+
+  .btn {
+    border:none; cursor:pointer; font-family:inherit;
+    font-size:13px; font-weight:600; border-radius:8px;
+    padding:9px 16px; transition: all 0.2s;
+    display:flex; align-items:center; gap:6px;
+  }
+  .btn-copy {
+    background: linear-gradient(135deg, var(--gold), var(--gold2));
+    color: var(--navy); flex:1; justify-content:center;
+  }
+  .btn-copy:hover { transform:translateY(-1px); box-shadow:0 4px 16px rgba(201,162,39,0.35); }
+  .btn-wa {
+    background: #25d366; color:#fff;
+    padding: 9px 14px;
+  }
+  .btn-wa:hover { background:#1da851; }
+
+  .copy-toast {
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(60px);
+    background: var(--teal); color:#fff;
+    padding:10px 24px; border-radius:40px;
+    font-size:13px; font-weight:600;
+    box-shadow: 0 8px 32px rgba(0,184,169,0.4);
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    z-index:999;
+  }
+  .copy-toast.show { transform:translateX(-50%) translateY(0); }
+
+  /* scrollbar for main */
+  ::-webkit-scrollbar { width:6px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius:6px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo-badge">BC</div>
+  <div class="header-title">
+    <h1>CS Kit — Bea Cukai Pasuruan</h1>
+    <p>Template Jawaban Cepat</p>
+  </div>
+  <div class="header-badge">✦ WhatsApp & Instagram</div>
+</header>
+
+<div class="app">
+
+  <!-- SEARCH -->
+  <div class="search-bar">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="searchInput" placeholder="Cari template... (contoh: impor, cukai, tarif)" oninput="filterTemplates()">
+    </div>
+    <div class="stats-pill">
+      <div class="pill"><span id="visibleCount">0</span> template</div>
+      <div class="pill">Pasuruan <span>✦</span></div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-label">Kategori</div>
+    <div id="catList"></div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="main-inner" id="templateList"></div>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview">
+    <div class="preview-head">
+      <h3>Preview & Edit Template</h3>
+      <p>Klik template untuk melihat & menyalin</p>
+    </div>
+    <div class="preview-body" id="previewBody">
+      <div class="preview-empty">
+        <div class="icon">💬</div>
+        <p>Pilih template di sebelah kiri<br>untuk melihat preview pesan</p>
+      </div>
+    </div>
+    <div class="preview-footer" id="previewFooter" style="display:none">
+      <button class="btn btn-copy" onclick="copyTemplate()">📋 Salin Pesan</button>
+      <button class="btn btn-wa" onclick="openWA()" title="Buka WhatsApp Web">📱</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="copy-toast" id="toast">✅ Pesan disalin!</div>
+
+<script>
+const CATEGORIES = [
+  { id:'all',    name:'Semua Template', icon:'📋', color:'#c9a227', bg:'rgba(201,162,39,0.15)' },
+  { id:'salam',  name:'Salam & Pembuka', icon:'👋', color:'#00d4c2', bg:'rgba(0,212,194,0.15)' },
+  { id:'impor',  name:'Impor Barang',    icon:'📦', color:'#4da6ff', bg:'rgba(77,166,255,0.15)' },
+  { id:'ekspor', name:'Ekspor Barang',   icon:'✈️', color:'#a78bfa', bg:'rgba(167,139,250,0.15)' },
+  { id:'cukai',  name:'Cukai & Pajak',   icon:'💰', color:'#f59e0b', bg:'rgba(245,158,11,0.15)' },
+  { id:'status', name:'Status & Tracking',icon:'🔍', color:'#34d399', bg:'rgba(52,211,153,0.15)' },
+  { id:'prosedur',name:'Prosedur & Syarat',icon:'📄', color:'#fb923c', bg:'rgba(251,146,60,0.15)' },
+  { id:'lartas', name:'Lartas & Prohibited',icon:'🚫', color:'#f87171', bg:'rgba(248,113,113,0.15)' },
+  { id:'keluhan',name:'Keluhan & Solusi', icon:'🛠️', color:'#60a5fa', bg:'rgba(96,165,250,0.15)' },
+  { id:'penutup',name:'Penutup & Salam', icon:'🤝', color:'#86efac', bg:'rgba(134,239,172,0.15)' },
+  { id:'imei',   name:'FAQ — IMEI',      icon:'📱', color:'#f472b6', bg:'rgba(244,114,182,0.15)' },
+  { id:'nppbkc', name:'FAQ — NPPBKC',   icon:'🏭', color:'#fb7185', bg:'rgba(251,113,133,0.15)' },
+  { id:'kb',     name:'FAQ — Kawasan Berikat', icon:'🏗️', color:'#38bdf8', bg:'rgba(56,189,248,0.15)' },
+  { id:'insw',   name:'FAQ — INSW',      icon:'🌐', color:'#a3e635', bg:'rgba(163,230,53,0.15)' },
+  { id:'penumpang', name:'FAQ — Barang Penumpang', icon:'🧳', color:'#fbbf24', bg:'rgba(251,191,36,0.15)' },
+  { id:'rokokilegal', name:'FAQ — Rokok Ilegal',   icon:'🚭', color:'#f43f5e', bg:'rgba(244,63,94,0.15)' },
+];
+
+const TEMPLATES = [
+  // SALAM
+  { id:1, cat:'salam', channel:'all', title:'Salam Pembuka Standar',
+    vars:['nama_pengirim'],
+    text:`Assalamualaikum Wr. Wb. 🙏
+
+Selamat datang di layanan Customer Service *Bea Cukai Pasuruan*.
+
+Perkenalkan, kami siap membantu pertanyaan Anda terkait kepabeanan dan cukai.
+
+Boleh kami ketahui nama Bapak/Ibu dan keperluan yang ingin disampaikan?
+
+Terima kasih 🙏` },
+
+  { id:2, cat:'salam', channel:'ig', title:'Salam Pembuka Instagram',
+    vars:[],
+    text:`Halo kak! 👋✨
+
+Terima kasih sudah menghubungi *Bea Cukai Pasuruan* melalui Instagram.
+
+Kami siap membantu pertanyaan seputar kepabeanan dan cukai. Silakan ceritakan keperluannya ya kak 😊
+
+#BeaCukaiPasuruan #Kepabeanan` },
+
+  { id:3, cat:'salam', channel:'wa', title:'Salam Pagi',
+    vars:[],
+    text:`Selamat pagi! ☀️
+
+Terima kasih telah menghubungi *Customer Service Bea Cukai Pasuruan*.
+
+Kami siap melayani Bapak/Ibu pada hari ini. Silakan sampaikan pertanyaan atau kebutuhan Anda.
+
+Jam layanan CS: *Senin – Jumat, 08.00 – 16.00 WIB* 🕗` },
+
+  // IMPOR
+  { id:4, cat:'impor', channel:'all', title:'Informasi Umum Impor',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 👋
+
+Berikut informasi umum mengenai *proses impor barang*:
+
+📦 *Dokumen yang diperlukan:*
+• Invoice & Packing List
+• Bill of Lading / Airway Bill
+• Pemberitahuan Impor Barang (PIB)
+• Surat Kuasa (jika dikuasakan)
+
+💡 *Alur singkat:*
+1️⃣ Pengajuan PIB melalui sistem CEISA
+2️⃣ Penelitian dokumen
+3️⃣ Pemeriksaan fisik (bila diperlukan)
+4️⃣ Pelunasan bea masuk & pajak
+5️⃣ Pengeluaran barang
+
+Ada yang ingin ditanyakan lebih lanjut? 😊` },
+
+  { id:5, cat:'impor', channel:'all', title:'Kalkulator Bea Masuk',
+    vars:['nama','nilai_cif','hs_code','tarif_bm'],
+    text:`Halo Bapak/Ibu *[nama]* 😊
+
+Berikut estimasi *bea masuk* untuk barang Anda:
+
+📦 *Detail Perhitungan:*
+• Nilai CIF       : Rp [nilai_cif]
+• HS Code         : [hs_code]
+• Tarif BM        : [tarif_bm]%
+
+💰 *Estimasi Kewajiban:*
+• Bea Masuk (BM)  : dihitung dari nilai CIF × tarif
+• PPN Impor       : 11% × (CIF + BM)
+• PPh Pasal 22    : sesuai jenis barang
+
+⚠️ Perhitungan bersifat *estimasi*. Nilai pasti ditentukan saat proses customs clearance.
+
+Butuh informasi lebih lanjut? 🙏` },
+
+  { id:6, cat:'impor', channel:'wa', title:'Impor Barang Kiriman / Paket',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 📦
+
+Untuk *barang kiriman (paket luar negeri)*, berlaku ketentuan:
+
+✅ *Bebas BM & Pajak:*
+• Nilai di bawah *USD 3* (Free on Board)
+
+📋 *Dikenakan BM & Pajak:*
+• Nilai di atas USD 3
+• BM: sesuai tarif HS Code
+• PPN: 11%
+• PPh: 7,5% – 10% (tergantung kepemilikan NPWP)
+
+📱 *Cek status paket:*
+Website: beacukai.go.id → Cek Barang Kiriman
+
+Ada nomor resi yang ingin dicek? 😊` },
+
+  // EKSPOR
+  { id:7, cat:'ekspor', channel:'all', title:'Informasi Umum Ekspor',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* ✈️
+
+Berikut informasi *prosedur ekspor barang*:
+
+📄 *Dokumen Ekspor:*
+• Pemberitahuan Ekspor Barang (PEB)
+• Invoice & Packing List
+• Sertifikat asal barang (bila diperlukan)
+• Izin ekspor (untuk barang tertentu)
+
+📋 *Alur Ekspor:*
+1️⃣ Pengajuan PEB via CEISA
+2️⃣ Penerbitan NPE (Nota Pelayanan Ekspor)
+3️⃣ Pemeriksaan fisik (bila jalur merah)
+4️⃣ Pemuatan barang ke sarana pengangkut
+
+💡 Ekspor umumnya *tidak dikenakan bea keluar*, kecuali barang tertentu (CPO, mineral, dll).
+
+Ada pertanyaan? 😊` },
+
+  // CUKAI
+  { id:8, cat:'cukai', channel:'all', title:'Informasi Cukai Rokok',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 🚬
+
+Berikut informasi terkait *cukai hasil tembakau (rokok)*:
+
+💰 *Tarif Cukai 2024:*
+• SKM (Sigaret Kretek Mesin): sesuai golongan
+• SKT (Sigaret Kretek Tangan): sesuai golongan
+• SPM (Sigaret Putih Mesin): sesuai golongan
+
+⚠️ *Ketentuan penting:*
+• Setiap batang rokok *wajib dilekati pita cukai*
+• Rokok tanpa pita cukai = *ILEGAL*
+• Pelanggaran dapat dikenakan sanksi pidana
+
+📞 Laporkan rokok ilegal ke:
+*1500 225* (Hotline Bea Cukai)
+
+Ada yang ingin ditanyakan? 🙏` },
+
+  { id:9, cat:'cukai', channel:'all', title:'Pengurusan NPPBKC',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 📋
+
+Untuk *pengajuan NPPBKC* (Nomor Pokok Pengusaha Barang Kena Cukai):
+
+📁 *Persyaratan dokumen:*
+• Fotokopi KTP / identitas pengurus
+• Fotokopi NPWP perusahaan
+• Fotokopi akta pendirian perusahaan
+• Fotokopi izin usaha (NIB/SIUP)
+• Foto lokasi usaha / pabrik
+• Denah/lay-out lokasi
+
+🏢 *Pengajuan:*
+Datang langsung ke *Kantor Bea Cukai Pasuruan*
+atau melalui portal: *portal.beacukai.go.id*
+
+⏱️ Proses: ± 30 hari kerja setelah berkas lengkap.
+
+Butuh bantuan lebih lanjut? 😊` },
+
+  // STATUS
+  { id:10, cat:'status', channel:'wa', title:'Pengecekan Status Barang',
+    vars:['nama','nomor_aju'],
+    text:`Halo Bapak/Ibu *[nama]* 🔍
+
+Kami sedang mengecek status barang Anda dengan:
+📌 Nomor Aju: *[nomor_aju]*
+
+⏳ Mohon ditunggu sebentar, kami akan segera memberikan informasi.
+
+Atau Anda bisa cek secara mandiri di:
+🌐 *www.beacukai.go.id/barangkiriman*
+
+Jika ada kendala, kami siap membantu 😊` },
+
+  { id:11, cat:'status', channel:'all', title:'Barang Tertahan / Hold',
+    vars:['nama','nomor_dokumen'],
+    text:`Halo Bapak/Ibu *[nama]* 📦
+
+Berdasarkan pengecekan untuk dokumen *[nomor_dokumen]*, barang Anda saat ini dalam status *HOLD / DITAHAN* karena:
+
+🔴 Kemungkinan penyebab:
+• Dokumen belum lengkap
+• Diperlukan pemeriksaan fisik
+• Adanya kekurangan pembayaran bea/pajak
+• Barang masuk kategori lartas
+
+📋 *Langkah selanjutnya:*
+1. Lengkapi dokumen yang diperlukan
+2. Hubungi petugas kami di loket pelayanan
+3. Atau datang langsung ke Kantor Bea Cukai Pasuruan
+
+📍 Jl. [alamat kantor]
+📞 [nomor telepon kantor]
+
+Kami siap membantu menyelesaikan 🙏` },
+
+  // PROSEDUR
+  { id:12, cat:'prosedur', channel:'all', title:'Jam & Lokasi Pelayanan',
+    vars:[],
+    text:`Halo! Berikut informasi *Kantor Bea Cukai Pasuruan* 📍
+
+🏢 *Alamat:*
+Jl. Gatot Subroto No. 1, Pasuruan, Jawa Timur
+
+⏰ *Jam Pelayanan:*
+Senin – Kamis : 08.00 – 16.00 WIB
+Jumat          : 08.00 – 16.30 WIB
+Sabtu & Minggu : Tutup 🚪
+
+📞 *Kontak:*
+Telp: (0343) XXXXXX
+Email: bc.pasuruan@customs.go.id
+IG: @beacukaipasuruan
+
+🌐 *Website:* www.beacukai.go.id
+
+Untuk keperluan mendesak di luar jam kerja, dapat menghubungi nomor darurat kami 🙏` },
+
+  { id:13, cat:'prosedur', channel:'all', title:'Syarat Impor Barang Khusus - Makanan',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 🍱
+
+Untuk *impor produk makanan/minuman*, diperlukan:
+
+📋 *Persyaratan tambahan:*
+✅ Sertifikat halal (untuk produk tertentu)
+✅ Izin BPOM / ML Number
+✅ Label bahasa Indonesia
+✅ Keterangan kedaluwarsa jelas
+✅ Sertifikat kesehatan dari negara asal
+
+⚠️ *Catatan:*
+Tanpa izin BPOM, produk makanan/minuman *tidak dapat dikeluarkan* dari pabean.
+
+💡 Urus izin BPOM di: *www.registrasipangan.pom.go.id*
+
+Ada pertanyaan lebih lanjut? 😊` },
+
+  // LARTAS
+  { id:14, cat:'lartas', channel:'all', title:'Informasi Lartas',
+    vars:['nama','nama_barang'],
+    text:`Halo Bapak/Ibu *[nama]* 🚫
+
+Terkait pertanyaan mengenai *[nama_barang]*, barang tersebut termasuk dalam kategori *LARTAS (Larangan & Pembatasan)*.
+
+📋 *Artinya:*
+Barang tersebut memerlukan *izin khusus* dari instansi teknis terkait sebelum dapat diimpor/diekspor.
+
+🏛️ *Instansi yang berwenang* (tergantung jenis barang):
+• Kementerian Perdagangan
+• BPOM (makanan, obat, kosmetik)
+• Kementan (produk pertanian/hewan)
+• Kominfo (alat telekomunikasi)
+• Kemenhan / Polri (senjata)
+
+⚠️ Tanpa izin tersebut, barang *tidak dapat dikeluarkan* dari kawasan pabean.
+
+Kami sarankan untuk mengurus perizinan terlebih dahulu 🙏` },
+
+  { id:15, cat:'lartas', channel:'all', title:'Barang Dilarang Impor',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* ⛔
+
+Berikut kategori *barang yang dilarang* masuk ke Indonesia:
+
+🚫 *Barang Dilarang Impor:*
+• Narkotika & psikotropika
+• Senjata api & amunisi (tanpa izin)
+• Bahan peledak
+• Uang palsu
+• Pornografi
+• Hewan & tumbuhan dilindungi (CITES)
+• Produk mengandung bahan berbahaya (mercury, dll)
+• Barang bajakan / HKI
+
+⚠️ Impor barang-barang di atas dapat dikenakan *sanksi pidana*.
+
+Jika Anda tidak yakin apakah barang Anda termasuk kategori larangan, silakan konsultasikan dengan kami 🙏` },
+
+  // KELUHAN
+  { id:16, cat:'keluhan', channel:'all', title:'Respons Keluhan Umum',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 🙏
+
+Kami mohon maaf atas ketidaknyamanan yang dialami.
+
+Kami telah mencatat keluhan Anda dan akan segera menindaklanjuti ke bagian terkait.
+
+📋 *Referensi pengaduan:*
+• Whistleblowing System: *wbs.customs.go.id*
+• SP4N-LAPOR: *lapor.go.id*
+• Hotline: *1500 225*
+• Email: pengaduan@customs.go.id
+
+⏱️ Kami akan memberikan respons dalam *3–5 hari kerja*.
+
+Terima kasih atas kepercayaan Anda kepada Bea Cukai Pasuruan 🙏` },
+
+  { id:17, cat:'keluhan', channel:'all', title:'Penanganan Barang Rusak',
+    vars:['nama','nomor_dokumen'],
+    text:`Halo Bapak/Ibu *[nama]* 😔
+
+Kami turut prihatin dengan kondisi barang yang Anda terima.
+
+Untuk *barang rusak saat proses kepabeanan*, berikut langkahnya:
+
+📋 *Yang perlu disiapkan:*
+• Foto kondisi kerusakan barang
+• Dokumen impor (PIB / nomor aju: *[nomor_dokumen]*)
+• Surat klaim kepada pihak pengangkut/asuransi
+
+🔍 *Catatan:*
+Jika kerusakan terjadi *sebelum diserahkan ke Bea Cukai*, maka tanggung jawab ada pada maskapai/pengangkut.
+
+Jika terjadi *saat pemeriksaan fisik* oleh petugas, segera laporkan ke Kepala Seksi Pelayanan kami.
+
+📞 *Hubungi kami langsung:* (0343) XXXXXX
+
+Kami siap membantu 🙏` },
+
+  // PENUTUP
+  { id:18, cat:'penutup', channel:'all', title:'Penutup Standar',
+    vars:['nama'],
+    text:`Terima kasih Bapak/Ibu *[nama]* 🙏
+
+Semoga informasi yang kami sampaikan bermanfaat.
+
+Jika masih ada pertanyaan lain seputar kepabeanan dan cukai, jangan ragu untuk menghubungi kami kembali.
+
+✨ *Bea Cukai Pasuruan*
+_Melayani dengan Profesional, Integritas, dan Inovasi_
+
+Wassalamualaikum Wr. Wb. 🙏` },
+
+  { id:19, cat:'penutup', channel:'wa', title:'Penutup Survey Kepuasan',
+    vars:['nama'],
+    text:`Terima kasih Bapak/Ibu *[nama]* atas kepercayaan Anda 🙏
+
+Kami berharap permasalahan Anda telah terselesaikan dengan baik.
+
+📊 *Bantu kami berkembang!*
+Mohon luangkan waktu untuk mengisi survei kepuasan layanan kami:
+🌐 *s.id/skm-bcpasuruan*
+
+⭐ Penilaian Anda sangat berarti bagi peningkatan layanan kami.
+
+_Bea Cukai Pasuruan — Bangga Melayani_ 🇮🇩` },
+
+  { id:20, cat:'penutup', channel:'ig', title:'Penutup Instagram',
+    vars:[],
+    text:`Terima kasih sudah menghubungi kami kak! 💙
+
+Semoga informasinya membantu ya ✨
+
+Jangan lupa follow akun kami untuk update terbaru seputar kepabeanan dan cukai!
+
+Sampai jumpa kak 👋😊
+
+#BeaCukaiPasuruan #LayananPublik #Kepabeanan` },
+
+  // ── FAQ: IMEI ──
+  { id:21, cat:'imei', channel:'all', title:'FAQ IMEI — Apa itu Registrasi IMEI?',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 📱
+
+*Apa itu Registrasi IMEI?*
+
+IMEI (International Mobile Equipment Identity) adalah nomor identitas unik perangkat telekomunikasi (HP, tablet, dll).
+
+📋 *Mengapa harus didaftarkan?*
+Perangkat yang dibeli dari luar negeri wajib didaftarkan IMEI-nya ke Bea Cukai agar dapat digunakan dengan SIM Card Indonesia. Tanpa registrasi, perangkat akan terblokir dari jaringan seluler Indonesia.
+
+✅ *Siapa yang wajib daftar?*
+• Penumpang yang membawa HP dari luar negeri
+• Awak sarana pengangkut
+• Penerima barang kiriman dari luar negeri
+
+📌 *Batas waktu pendaftaran:*
+Paling lambat *60 hari* setelah tiba di Indonesia.
+
+*Maksimal 2 unit* perangkat per penumpang/awak.
+
+🌐 Cek status IMEI: *www.beacukai.go.id/cek-imei*
+
+Ada pertanyaan lebih lanjut? 😊` },
+
+  { id:22, cat:'imei', channel:'all', title:'FAQ IMEI — Cara Daftar IMEI',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 📲
+
+Berikut *cara mendaftarkan IMEI* perangkat dari luar negeri:
+
+*Langkah 1 — Daftar Online:*
+📲 Unduh aplikasi *Mobile Bea Cukai* (Android/iOS)
+   atau kunjungi: *www.beacukai.go.id*
+📝 Isi formulir pendaftaran IMEI
+🎫 Simpan barcode hasil registrasi
+
+*Langkah 2 — Dokumen yang dibawa ke kantor:*
+• Perangkat yang akan didaftarkan
+• Barcode hasil registrasi online
+• Paspor (halaman depan + stempel imigrasi)
+• Tiket & boarding pass
+• NPWP (jika ada)
+• Bukti pembelian/invoice (jika ada)
+
+*Langkah 3 — Datang ke Kantor Bea Cukai:*
+📍 Kantor Bea Cukai Pasuruan
+⏰ Senin–Kamis: 08.00–16.00 WIB
+   Jumat: 08.00–16.30 WIB
+
+💡 Aktivasi jaringan maksimal *2×24 jam* setelah proses selesai.
+
+Butuh bantuan? 🙏` },
+
+  { id:23, cat:'imei', channel:'all', title:'FAQ IMEI — Tarif Pajak HKT Bawaan Penumpang',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 💰
+
+Berikut *rincian tarif pajak IMEI* untuk HKT (Handphone, Komputer Genggam, Tablet) bawaan penumpang:
+
+🎁 *Pembebasan:*
+Nilai HKT sampai dengan *USD 500* per orang → *bebas* BM & pajak
+
+💵 *Di atas USD 500* (kelebihan dikenakan):
+• *Bea Masuk (BM):* 10% dari nilai pabean
+• *PPN:* 12% dari nilai impor
+• *PPh Pasal 22 Impor:* dikecualikan (sesuai PMK 34/2025)
+
+📦 *HKT via Barang Kiriman (Pos/PJT):*
+Nilai di atas FOB USD 3:
+• BM: 7,5%
+• PPN: 12%
+
+⚠️ *Registrasi di luar bandara (kantor BC terdekat):*
+Tidak mendapat pembebasan USD 500
+• BM: 10%, PPN: 12%
+• PPh 22: 10% (punya NPWP) / 20% (tanpa NPWP)
+
+📌 Dasar: *PER-13/BC/2021 jo PER-7/BC/2023* & *PMK 34/2025*
+
+🌐 Kalkulator IMEI: *beacukai.go.id/registrasiimei*
+
+Mau estimasi nominal pajaknya? 😊` },
+
+  { id:24, cat:'imei', channel:'wa', title:'FAQ IMEI — Status IMEI Terblokir',
+    vars:['nama','nomor_imei'],
+    text:`Halo Bapak/Ibu *[nama]* 🔴
+
+Kami memahami kendala yang Bapak/Ibu alami terkait IMEI terblokir.
+
+📋 *Langkah pengecekan:*
+1. Buka *www.beacukai.go.id/cek-imei*
+2. Masukkan nomor IMEI: *[nomor_imei]*
+3. Periksa status yang tertera
+
+🔍 *Kemungkinan status:*
+✅ *"Data IMEI telah terkirim ke Kemenkominfo"*
+→ Perangkat terdaftar, coba ganti SIM Card atau hubungi operator
+
+❌ *"Data tidak ditemukan"*
+→ IMEI belum terdaftar, perlu proses registrasi
+
+📞 *Jika IMEI sudah terdaftar tapi masih terblokir:*
+Hubungi langsung *Kemenkominfo*
+📲 Layanan Aduan: *aduan.kominfo.go.id*
+
+Kami siap membantu proses registrasi jika diperlukan 🙏` },
+
+  // ── FAQ: NPPBKC ──
+  { id:25, cat:'nppbkc', channel:'all', title:'FAQ NPPBKC — Apa itu NPPBKC?',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 🏭
+
+*Apa itu NPPBKC?*
+
+NPPBKC (Nomor Pokok Pengusaha Barang Kena Cukai) adalah *izin wajib* yang harus dimiliki sebelum menjalankan kegiatan usaha di bidang cukai.
+
+📋 *Siapa yang wajib memiliki NPPBKC?*
+• Pengusaha Pabrik (hasil tembakau, etil alkohol, MMEA)
+• Pengusaha Tempat Penyimpanan
+• Importir Barang Kena Cukai
+• Penyalur BKC
+• Pengusaha Tempat Penjualan Eceran (PTPE)
+
+⚠️ *Barang Kena Cukai (BKC) di Indonesia:*
+1. Etil Alkohol (EA)
+2. Minuman Mengandung Etil Alkohol (MMEA)
+3. Hasil Tembakau (HT) — termasuk rokok, cerutu, tembakau iris
+
+📌 *Dasar hukum:*
+UU No. 11/1995 jo UU No. 39/2007 tentang Cukai, PP No. 72/2008, PMK No. 66/PMK.04/2018 jo PMK No. 68/2023.
+
+Butuh info pengajuan? 😊` },
+
+  { id:26, cat:'nppbkc', channel:'all', title:'FAQ NPPBKC — Syarat & Alur 2 Tahap',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 📋
+
+Pengajuan NPPBKC dilakukan dalam *2 Tahap*:
+
+━━━━━━━━━━━━━━━━
+📌 *TAHAP 1 — Permohonan Periksa Lokasi*
+━━━━━━━━━━━━━━━━
+Dokumen yang dilampirkan:
+✅ Surat Permohonan Periksa Lokasi
+✅ Gambar denah situasi sekitar lokasi
+✅ Gambar denah dalam lokasi / bangunan
+✅ Salinan NIB
+✅ Surat Kuasa (jika dikuasakan)
+
+⏱️ Petugas menerbitkan *Berita Acara Pemeriksaan (BAP)* paling lambat *5 hari kerja*.
+
+━━━━━━━━━━━━━━━━
+📌 *TAHAP 2 — Permohonan NPPBKC*
+━━━━━━━━━━━━━━━━
+Dokumen yang dilampirkan:
+✅ Surat Permohonan NPPBKC (bermaterai, ttd pimpinan)
+✅ BAP Lokasi dari Tahap 1 (berlaku 3 bulan)
+✅ NIB / Izin usaha dari instansi terkait
+✅ Daftar mesin (khusus Pengusaha Pabrik)
+✅ Daftar penyalur tingkat pertama (khusus Pabrik HT)
+✅ Surat Pernyataan tidak keberatan dibekukan/dicabut
+✅ Surat Pernyataan bertanggung jawab atas kegiatan usaha
+
+⏱️ Keputusan diterbitkan paling lambat *3 hari kerja*.
+
+📌 Dasar hukum: *PMK 66/PMK.04/2018 jo PMK 68/2023* & *PER-14/BC/2023*
+
+Butuh bantuan lebih lanjut? 🙏` },
+
+  { id:27, cat:'nppbkc', channel:'all', title:'FAQ NPPBKC — Perpanjangan & Pembekuan',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 🔄
+
+Informasi terkait *perpanjangan dan pembekuan NPPBKC*:
+
+🔁 *Perpanjangan NPPBKC:*
+NPPBKC untuk *penyalur dan PTPE* berlaku untuk jangka waktu tertentu dan wajib diperpanjang.
+• Ajukan perpanjangan *sebelum masa berlaku habis*
+• Dokumen: sama dengan pengajuan baru + NPPBKC lama
+
+⛔ *NPPBKC dapat dibekukan jika:*
+• Pengusaha tidak lagi memenuhi persyaratan fisik
+• Terdapat pelanggaran ketentuan cukai
+• Tidak menyampaikan laporan bulanan
+
+❌ *NPPBKC dapat dicabut jika:*
+• Pengusaha secara sukarela mengajukan pencabutan
+• Pailit atau likuidasi
+• Pembekuan tidak diselesaikan dalam jangka waktu yang ditentukan
+• Melakukan pelanggaran berat
+
+📋 Dasar hukum: *PMK 68 Tahun 2023* dan *PER-14/BC/2023*
+
+Ada pertanyaan lebih lanjut? 😊` },
+
+  // ── FAQ: KAWASAN BERIKAT ──
+  { id:28, cat:'kb', channel:'all', title:'FAQ KB — Apa itu Kawasan Berikat?',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 🏗️
+
+*Apa itu Kawasan Berikat (KB)?*
+
+Kawasan Berikat adalah salah satu jenis *Tempat Penimbunan Berikat (TPB)* yang digunakan untuk:
+• Menimbun *barang impor* dan/atau barang dari dalam negeri
+• Melakukan *pengolahan atau penggabungan* barang
+• Sebelum *diekspor* atau diimpor untuk dipakai
+
+💡 *Sederhananya:*
+KB adalah kawasan industri berorientasi ekspor yang mendapat *fasilitas fiskal dan non-fiskal* dari Bea Cukai.
+
+📌 *Dasar hukum:*
+• PMK No. 65 Tahun 2021 tentang Kawasan Berikat
+• Perdirjen BC No. 9 Tahun 2021
+
+🏭 *Jenis TPB lainnya:*
+• Gudang Berikat (GB)
+• Pusat Logistik Berikat (PLB)
+• Toko Bebas Bea (TBB)
+• Tempat Penyelenggaraan Pameran Berikat (TPPB)
+
+Butuh info fasilitas atau cara daftar? 😊` },
+
+  { id:29, cat:'kb', channel:'all', title:'FAQ KB — Fasilitas Kawasan Berikat',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 🎁
+
+Berikut *fasilitas yang diperoleh* perusahaan di Kawasan Berikat:
+
+💰 *Fasilitas Fiskal:*
+✅ *Penangguhan Bea Masuk* — BM tidak dibayar saat impor, hanya saat barang keluar ke TLDDP
+✅ *Pembebasan Cukai* — selama barang masih dalam KB
+✅ *PPN & PPnBM Impor tidak dipungut*
+✅ *PPh Pasal 22 Impor tidak dipungut*
+✅ *PPN tidak dipungut* untuk pembelian barang lokal ke KB
+
+🏢 *Fasilitas Non-Fiskal:*
+✅ Penangguhan ketentuan lartas (tata niaga impor)
+✅ Pengeluaran barang secara parsial
+✅ Pemberitahuan pabean terotomasi (sistem digital)
+✅ Manfaat Free Trade Agreement (FTA)
+✅ Pemeriksaan pabean di lokasi pabrik
+✅ Subkontrak pekerjaan ke pihak ketiga
+✅ Pengawasan berbasis IT & CCTV online
+
+📈 *Manfaat:*
+Meningkatkan daya saing industri berorientasi ekspor dengan efisiensi biaya logistik.
+
+Ada pertanyaan lebih lanjut? 🙏` },
+
+  { id:30, cat:'kb', channel:'all', title:'FAQ KB — Cara Pengajuan Izin Kawasan Berikat',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 📋
+
+Berikut *cara pengajuan izin Kawasan Berikat*:
+
+📋 *Persyaratan Umum:*
+✅ Badan usaha berbentuk PT atau koperasi
+✅ NPWP perusahaan aktif
+✅ NIB/izin usaha dari OSS
+✅ Lahan/bangunan jelas (SHM, HGB, atau sewa)
+✅ Rencana produksi berorientasi ekspor
+✅ Laporan keuangan terakhir
+
+🔄 *Alur Pengajuan:*
+1️⃣ Persiapkan dokumen persyaratan
+2️⃣ Ajukan permohonan ke *Kantor Bea Cukai Pasuruan*
+   (atau Kanwil BC Jatim II jika lintas wilayah)
+3️⃣ Petugas melakukan *pemeriksaan lokasi*
+4️⃣ Penetapan sebagai Kawasan Berikat
+5️⃣ Penandatanganan perjanjian dengan DJBC
+
+🌐 Info lebih lanjut:
+*www.beacukai.go.id/fasilitas-tpb-kb*
+
+⚠️ Pengusaha KB juga diberlakukan sebagai pemegang *NPPBKC* secara otomatis.
+
+Kami siap membantu konsultasi! 😊` },
+
+  // ── FAQ: INSW ──
+  { id:31, cat:'insw', channel:'all', title:'FAQ INSW — Apa itu INSW?',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 🌐
+
+*Apa itu INSW (Indonesia National Single Window)?*
+
+INSW adalah *sistem elektronik terintegrasi nasional* yang menghubungkan seluruh proses penanganan dokumen ekspor-impor dalam satu platform.
+
+🏛️ *Dikelola oleh:*
+LNSW (Lembaga National Single Window) — Kementerian Keuangan RI
+
+📋 *Fungsi INSW:*
+• Penerimaan dokumen *Pemberitahuan Pabean* (PIB/PEB)
+• Penerimaan dokumen *perizinan* dari instansi teknis
+• Proses otomasi *Customs Release & Cargo Clearance*
+• Tracking dokumen pabean & perizinan secara real-time
+• Integrasi data antar kementerian/lembaga
+
+🔗 *Manfaat bagi pelaku usaha:*
+✅ Satu portal untuk semua dokumen ekspor-impor
+✅ Proses lebih cepat dan transparan
+✅ Mengurangi tatap muka dan dokumen fisik
+✅ Terintegrasi dengan ASEAN Single Window (ASW)
+
+🌐 Akses portal: *www.insw.go.id*
+
+Ada pertanyaan? 😊` },
+
+  { id:32, cat:'insw', channel:'all', title:'FAQ INSW — Cara Registrasi di Portal INSW',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 🖥️
+
+Berikut *cara registrasi di portal INSW*:
+
+👤 *Siapa yang perlu daftar?*
+• Importir / Eksportir
+• PPJK (Pengusaha Pengurusan Jasa Kepabeanan)
+• Petugas instansi pemerintah terkait (GA)
+• Perusahaan pengguna fasilitas TPB/KB
+
+📝 *Langkah Registrasi:*
+1️⃣ Kunjungi *portal.insw.go.id*
+2️⃣ Pilih menu *Registrasi Pengguna Baru*
+3️⃣ Siapkan: NPWP, NIB, akta perusahaan, KTP pengurus
+4️⃣ Isi data perusahaan dan unggah dokumen
+5️⃣ Tunggu verifikasi dari admin INSW
+6️⃣ Setelah disetujui, akun aktif dan siap digunakan
+
+🔐 *Tipe akun:*
+• *User Admin Perusahaan* — mengelola akun internal
+• *User GA* — untuk instansi pemerintah
+• *User Analyzing Point (AP)* — petugas pemeriksaan
+
+🌐 Panduan lengkap: *panduan.insw.go.id*
+
+Butuh bantuan teknis lebih lanjut? 🙏` },
+
+  // ── FAQ: BARANG PENUMPANG ──
+  { id:33, cat:'penumpang', channel:'all', title:'FAQ Barang Penumpang — Ketentuan Umum',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 🧳
+
+Berikut *ketentuan barang bawaan penumpang* dari luar negeri:
+
+🎁 *Pembebasan Bea Masuk (Barang Pribadi):*
+• Penumpang umum: s.d. *FOB USD 500* per orang → bebas BM & PDRI
+• Awak sarana pengangkut: s.d. *FOB USD 50* per kedatangan
+
+💵 *Kelebihan di atas nilai pembebasan:*
+• BM: 10% (flat)
+• PPN: 12%
+• PPh Pasal 22: 0,5–10% (punya NPWP) / 1–20% (tanpa NPWP)
+
+⚠️ *Barang Titipan (Jastip):*
+Tidak mendapat pembebasan USD 500 — dikenakan tarif BM penuh (MFN)
+
+📋 *Wajib isi e-CD (Electronic Customs Declaration):*
+🌐 *ecd.beacukai.go.id*
+(dapat diisi 2 hari sebelum s.d. 1 hari setelah kedatangan)
+
+📌 Dasar: *PMK 34 Tahun 2025*
+
+Ada yang ingin ditanyakan? 😊` },
+
+  { id:34, cat:'penumpang', channel:'all', title:'FAQ Barang Penumpang — Haji & Umrah',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 🕋
+
+Berikut ketentuan *barang bawaan Jemaah Haji & Umrah* (PMK 34 Tahun 2025):
+
+🕌 *Jemaah Haji Reguler:*
+✅ Pembebasan bea masuk s.d. *FOB USD 2.500* per orang
+✅ Berlaku untuk seluruh barang pribadi, termasuk HP
+✅ Tetap wajib registrasi IMEI untuk HP dari luar negeri
+✅ Data jemaah otomatis terintegasi dengan sistem SKP Bea Cukai
+
+🕌 *Jemaah Haji Khusus:*
+✅ Pembebasan s.d. *FOB USD 2.500* per orang
+
+🕌 *Petugas Haji (ditetapkan Kemenag):*
+Mendapat fasilitas *penumpang umum* → pembebasan USD 500
+
+🕌 *Jemaah Umrah:*
+Mengikuti ketentuan *penumpang umum* → pembebasan USD 500
+⚠️ Umrah tidak diatur khusus dalam PMK 34/2025
+
+📦 *Barang Kiriman Jemaah Haji:*
+• 2 pengiriman pertama: bebas BM (s.d. USD 1.500 per kiriman)
+• Kelebihan USD 1.500: dikenakan BM 7,5%
+
+🚫 *Barang dilarang dibawa:*
+Senjata, narkotika, bahan peledak, hewan dilindungi, pornografi
+
+📌 Dasar: *PMK 34 Tahun 2025, Pasal 12 ayat (2)* & *PMK 4 Tahun 2025*
+
+Ada pertanyaan? 🙏` },
+
+  { id:35, cat:'penumpang', channel:'all', title:'FAQ Barang Penumpang — BKC Bebas Cukai',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 🚬
+
+Untuk *Barang Kena Cukai (BKC)* bawaan penumpang, diberikan pembebasan cukai dengan batas per orang dewasa:
+
+🚬 *Hasil Tembakau:*
+• Sigaret / rokok: *200 batang*
+• Cerutu: *25 batang*
+• Tembakau iris (TIS): *100 gram*
+• HTPL lainnya: *100 gram*
+• Rokok elektrik batang: *140 batang*
+• Rokok elektrik kapsul: *40 kapsul*
+• Rokok elektrik cair tertutup: *12 ml*
+• Rokok elektrik cair terbuka: *30 ml*
+
+🍶 *MMEA (minuman beralkohol): *1 liter*
+
+👷 *Awak Sarana Pengangkut:* hanya *40 batang* rokok
+
+⚠️ Kelebihan dari batas tersebut dikenakan *cukai & pajak* sesuai ketentuan.
+BKC melebihi batas *dapat ditahan* oleh petugas.
+
+Ada pertanyaan lebih lanjut? 😊` },
+
+  // ── FAQ: ROKOK ILEGAL ──
+  { id:36, cat:'rokokilegal', channel:'all', title:'FAQ Rokok Ilegal — Mengenali Rokok Ilegal',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 🚭
+
+*Apa itu Rokok Ilegal?*
+
+Rokok ilegal adalah rokok yang beredar tanpa memenuhi ketentuan cukai. Ada beberapa jenisnya:
+
+🔴 *5 Jenis Rokok Ilegal:*
+1️⃣ *Rokok Polos* — tidak dilekati pita cukai sama sekali
+2️⃣ *Pita Cukai Palsu* — menggunakan pita cukai tiruan / dipalsukan
+3️⃣ *Pita Cukai Bekas* — menggunakan pita cukai yang sudah pernah dipakai
+4️⃣ *Salah Peruntukan* — jenis produk tidak sesuai pita cukai yang dilekati
+5️⃣ *Salah Personalisasi* — merek/pabrik tidak sesuai yang tertera di pita cukai
+
+✅ *Ciri Rokok LEGAL:*
+• Ada pita cukai asli yang terlekat pada kemasan
+• Nama pabrik, merek & jenis produk sesuai pita
+• Pita cukai utuh (tidak bekas pakai)
+• Terdapat hologram, tinta UV & microtext pada pita
+
+💡 *Dampak rokok ilegal:*
+Merugikan negara triliunan rupiah, melemahkan industri dalam negeri, dan membahayakan konsumen.
+
+Ingin tahu sanksi atau cara lapor? 😊` },
+
+  { id:37, cat:'rokokilegal', channel:'all', title:'FAQ Rokok Ilegal — Sanksi Pidana',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* ⚖️
+
+Berikut *sanksi pidana* rokok ilegal berdasarkan *UU No. 39 Tahun 2007 tentang Cukai*:
+
+🔴 *Pasal 54 — Menjual/mengedarkan tanpa pita cukai:*
+• Penjara: *1–5 tahun*
+• Denda: *2–10× nilai cukai* yang seharusnya dibayar
+
+🔴 *Pasal 55 — Pita cukai palsu/bekas:*
+• Penjara: *1–8 tahun*
+• Denda: *10–20× nilai cukai* yang seharusnya dibayar
+
+🔴 *Pasal 58 — Pita cukai salah peruntukan/personalisasi:*
+• Penjara: *1–5 tahun*
+• Denda: *2–10× nilai cukai* yang seharusnya dibayar
+
+⚠️ Sanksi berlaku untuk: produsen, distributor, penjual, dan pembeli dalam jumlah besar
+
+📌 *Alternatif penyelesaian (Pasal 40B UU Cukai):*
+Pelaku dapat tidak diproses pidana jika membayar denda administrasi *3× nilai cukai*.
+
+Ingin tahu cara melaporkan rokok ilegal? 🙏` },
+
+  { id:38, cat:'rokokilegal', channel:'wa', title:'FAQ Rokok Ilegal — Cara Melaporkan',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 📢
+
+Jika menemukan indikasi peredaran *rokok ilegal*, segera laporkan melalui:
+
+📞 *Bravo Bea Cukai (Nasional):*
+• Hotline: *1500 225*
+• Semua saluran: *linktr.ee/bravobeacukai*
+
+🏢 *Datang langsung:*
+Kantor Bea Cukai Pasuruan
+
+📱 *Media sosial resmi kami:*
+Instagram: *@beacukaipasuruan*
+
+🌐 *Whistleblowing System:*
+*wbs.customs.go.id*
+
+🔐 *Identitas pelapor dijamin kerahasiaannya!*
+
+✅ *Informasi yang perlu disiapkan:*
+• Lokasi peredaran / nama toko
+• Foto kemasan rokok ilegal (jika memungkinkan)
+• Nama pelaku/distributor (jika diketahui)
+
+🛡️ *Operasi Gurita* (sejak April 2025) adalah operasi nasional Bea Cukai serentak memberantas BKC ilegal.
+
+Mari bersama lawan rokok ilegal! 💪🇮🇩` },
+];
+
+let selectedId = null;
+let activeCategory = 'all';
+let searchQuery = '';
+
+function init() {
+  renderCategories();
+  renderTemplates();
+  updateCount();
+}
+
+function renderCategories() {
+  const el = document.getElementById('catList');
+  el.innerHTML = CATEGORIES.map(c => {
+    const count = c.id === 'all' ? TEMPLATES.length :
+      TEMPLATES.filter(t => t.cat === c.id).length;
+    return `
+      <div class="cat-item ${c.id === activeCategory ? 'active' : ''}" onclick="selectCat('${c.id}')">
+        <div class="cat-icon" style="background:${c.bg}; color:${c.color}">${c.icon}</div>
+        <div class="cat-text">
+          <div class="cat-name">${c.name}</div>
+        </div>
+        <div class="cat-count">${count}</div>
+      </div>`;
+  }).join('');
+}
+
+function selectCat(id) {
+  activeCategory = id;
+  renderCategories();
+  renderTemplates();
+}
+
+function filterTemplates() {
+  searchQuery = document.getElementById('searchInput').value.toLowerCase();
+  renderTemplates();
+}
+
+function getFiltered() {
+  return TEMPLATES.filter(t => {
+    const catMatch = activeCategory === 'all' || t.cat === activeCategory;
+    const q = searchQuery;
+    const textMatch = !q || t.title.toLowerCase().includes(q) || t.text.toLowerCase().includes(q);
+    return catMatch && textMatch;
+  });
+}
+
+function updateCount() {
+  document.getElementById('visibleCount').textContent = getFiltered().length;
+}
+
+function renderTemplates() {
+  const filtered = getFiltered();
+  updateCount();
+  const el = document.getElementById('templateList');
+
+  if (!filtered.length) {
+    el.innerHTML = `<div style="text-align:center;padding:60px 20px;color:var(--muted)">
+      <div style="font-size:40px;margin-bottom:12px">🔍</div>
+      <div style="font-size:14px">Template tidak ditemukan</div>
+    </div>`;
+    return;
+  }
+
+  el.innerHTML = filtered.map(t => {
+    const tagClass = t.channel === 'wa' ? 'tag-wa' : t.channel === 'ig' ? 'tag-ig' : 'tag-all';
+    const tagLabel = t.channel === 'wa' ? '💬 WhatsApp' : t.channel === 'ig' ? '📸 Instagram' : '🌐 Semua';
+    return `
+      <div class="tpl-card ${t.id === selectedId ? 'selected' : ''}" onclick="selectTemplate(${t.id})">
+        <div class="tpl-top">
+          <div class="tpl-title">${t.title}</div>
+          <div class="tpl-tag ${tagClass}">${tagLabel}</div>
+        </div>
+        <div class="tpl-preview">${t.text.replace(/\*/g,'').substring(0,120)}...</div>
+      </div>`;
+  }).join('');
+}
+
+function selectTemplate(id) {
+  selectedId = id;
+  renderTemplates();
+  const tpl = TEMPLATES.find(t => t.id === id);
+  if (!tpl) return;
+
+  const now = new Date();
+  const time = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+
+  let varsHtml = '';
+  if (tpl.vars.length > 0) {
+    varsHtml = `
+      <div class="var-section">
+        <div class="var-title">✏️ Isi Variabel</div>
+        <div class="var-grid">
+          ${tpl.vars.map(v => `
+            <div class="var-row">
+              <div class="var-label">[${v}]</div>
+              <input class="var-input" id="var_${v}" placeholder="Isi ${v.replace(/_/g,' ')}..." oninput="updatePreview()">
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  document.getElementById('previewBody').innerHTML = `
+    ${varsHtml}
+    <div class="bubble-wrap">
+      <div class="bubble-header">
+        <div class="bubble-avatar">BC</div>
+        <div>
+          <div class="bubble-name">CS Bea Cukai Pasuruan</div>
+          <div class="bubble-sub">Customer Service</div>
+        </div>
+      </div>
+      <div class="bubble-content">
+        <div class="bubble">
+          <p id="bubbleText">${formatText(tpl.text)}</p>
+          <div class="bubble-time">${time} ✓✓</div>
+        </div>
+      </div>
+    </div>`;
+
+  document.getElementById('previewFooter').style.display = 'flex';
+}
+
+function formatText(t) {
+  return t.replace(/\*/g,'<b>').replace(/\*$/,'</b>')
+    .split('\n').join('<br>');
+  // simpler: just show as-is
+}
+
+function updatePreview() {
+  const tpl = TEMPLATES.find(t => t.id === selectedId);
+  if (!tpl) return;
+  let text = tpl.text;
+  tpl.vars.forEach(v => {
+    const val = document.getElementById('var_' + v)?.value || `[${v}]`;
+    text = text.replaceAll(`[${v}]`, val || `[${v}]`);
+  });
+  const el = document.getElementById('bubbleText');
+  if (el) el.innerHTML = text.split('\n').join('<br>');
+}
+
+function getFullText() {
+  const tpl = TEMPLATES.find(t => t.id === selectedId);
+  if (!tpl) return '';
+  let text = tpl.text;
+  tpl.vars.forEach(v => {
+    const val = document.getElementById('var_' + v)?.value;
+    text = text.replaceAll(`[${v}]`, val || `[${v}]`);
+  });
+  return text;
+}
+
+function copyTemplate() {
+  const text = getFullText();
+  if (!text) return;
+  navigator.clipboard.writeText(text).then(() => {
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  });
+}
+
+function openWA() {
+  const text = encodeURIComponent(getFullText());
+  window.open(`https://wa.me/?text=${text}`, '_blank');
+}
+
+init();
+</script>
+</body>
+</html>
