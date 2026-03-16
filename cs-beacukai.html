@@ -358,7 +358,7 @@
 <header>
   <div class="logo-badge">BC</div>
   <div class="header-title">
-    <h1>CS Kit — Bea Cukai Pasuruan</h1>
+    <h1>CS Kit — KPPBC TMP A Pasuruan</h1>
     <p>Template Jawaban Cepat</p>
   </div>
   <div class="header-badge">✦ WhatsApp & Instagram</div>
@@ -413,22 +413,16 @@
 
 <script>
 const CATEGORIES = [
-  { id:'all',    name:'Semua Template', icon:'📋', color:'#c9a227', bg:'rgba(201,162,39,0.15)' },
-  { id:'salam',  name:'Salam & Pembuka', icon:'👋', color:'#00d4c2', bg:'rgba(0,212,194,0.15)' },
-  { id:'impor',  name:'Impor Barang',    icon:'📦', color:'#4da6ff', bg:'rgba(77,166,255,0.15)' },
-  { id:'ekspor', name:'Ekspor Barang',   icon:'✈️', color:'#a78bfa', bg:'rgba(167,139,250,0.15)' },
-  { id:'cukai',  name:'Cukai & Pajak',   icon:'💰', color:'#f59e0b', bg:'rgba(245,158,11,0.15)' },
-  { id:'status', name:'Status & Tracking',icon:'🔍', color:'#34d399', bg:'rgba(52,211,153,0.15)' },
-  { id:'prosedur',name:'Prosedur & Syarat',icon:'📄', color:'#fb923c', bg:'rgba(251,146,60,0.15)' },
-  { id:'lartas', name:'Lartas & Prohibited',icon:'🚫', color:'#f87171', bg:'rgba(248,113,113,0.15)' },
-  { id:'keluhan',name:'Keluhan & Solusi', icon:'🛠️', color:'#60a5fa', bg:'rgba(96,165,250,0.15)' },
-  { id:'penutup',name:'Penutup & Salam', icon:'🤝', color:'#86efac', bg:'rgba(134,239,172,0.15)' },
-  { id:'imei',   name:'FAQ — IMEI',      icon:'📱', color:'#f472b6', bg:'rgba(244,114,182,0.15)' },
-  { id:'nppbkc', name:'FAQ — NPPBKC',   icon:'🏭', color:'#fb7185', bg:'rgba(251,113,133,0.15)' },
-  { id:'kb',     name:'FAQ — Kawasan Berikat', icon:'🏗️', color:'#38bdf8', bg:'rgba(56,189,248,0.15)' },
-  { id:'insw',   name:'FAQ — INSW',      icon:'🌐', color:'#a3e635', bg:'rgba(163,230,53,0.15)' },
+  { id:'all',       name:'Semua Template',         icon:'📋', color:'#c9a227', bg:'rgba(201,162,39,0.15)' },
+  { id:'salam',     name:'Salam & Pembuka',        icon:'👋', color:'#00d4c2', bg:'rgba(0,212,194,0.15)' },
+  { id:'lartas',    name:'Lartas & Prohibited',    icon:'🚫', color:'#f87171', bg:'rgba(248,113,113,0.15)' },
+  { id:'keluhan',   name:'Keluhan & Solusi',       icon:'🛠️', color:'#60a5fa', bg:'rgba(96,165,250,0.15)' },
+  { id:'penutup',   name:'Penutup & Salam',        icon:'🤝', color:'#86efac', bg:'rgba(134,239,172,0.15)' },
+  { id:'imei',      name:'FAQ — IMEI',             icon:'📱', color:'#f472b6', bg:'rgba(244,114,182,0.15)' },
+  { id:'nppbkc',    name:'FAQ — NPPBKC',           icon:'🏭', color:'#fb7185', bg:'rgba(251,113,133,0.15)' },
+  { id:'kb',        name:'FAQ — Kawasan Berikat',  icon:'🏗️', color:'#38bdf8', bg:'rgba(56,189,248,0.15)' },
   { id:'penumpang', name:'FAQ — Barang Penumpang', icon:'🧳', color:'#fbbf24', bg:'rgba(251,191,36,0.15)' },
-  { id:'rokokilegal', name:'FAQ — Rokok Ilegal',   icon:'🚭', color:'#f43f5e', bg:'rgba(244,63,94,0.15)' },
+  { id:'rokokilegal',name:'FAQ — Rokok Ilegal',    icon:'🚭', color:'#f43f5e', bg:'rgba(244,63,94,0.15)' },
 ];
 
 const TEMPLATES = [
@@ -464,214 +458,6 @@ Terima kasih telah menghubungi *Customer Service Bea Cukai Pasuruan*.
 Kami siap melayani Bapak/Ibu pada hari ini. Silakan sampaikan pertanyaan atau kebutuhan Anda.
 
 Jam layanan CS: *Senin – Jumat, 08.00 – 16.00 WIB* 🕗` },
-
-  // IMPOR
-  { id:4, cat:'impor', channel:'all', title:'Informasi Umum Impor',
-    vars:['nama'],
-    text:`Halo Bapak/Ibu *[nama]* 👋
-
-Berikut informasi umum mengenai *proses impor barang*:
-
-📦 *Dokumen yang diperlukan:*
-• Invoice & Packing List
-• Bill of Lading / Airway Bill
-• Pemberitahuan Impor Barang (PIB)
-• Surat Kuasa (jika dikuasakan)
-
-💡 *Alur singkat:*
-1️⃣ Pengajuan PIB melalui sistem CEISA
-2️⃣ Penelitian dokumen
-3️⃣ Pemeriksaan fisik (bila diperlukan)
-4️⃣ Pelunasan bea masuk & pajak
-5️⃣ Pengeluaran barang
-
-Ada yang ingin ditanyakan lebih lanjut? 😊` },
-
-  { id:5, cat:'impor', channel:'all', title:'Kalkulator Bea Masuk',
-    vars:['nama','nilai_cif','hs_code','tarif_bm'],
-    text:`Halo Bapak/Ibu *[nama]* 😊
-
-Berikut estimasi *bea masuk* untuk barang Anda:
-
-📦 *Detail Perhitungan:*
-• Nilai CIF       : Rp [nilai_cif]
-• HS Code         : [hs_code]
-• Tarif BM        : [tarif_bm]%
-
-💰 *Estimasi Kewajiban:*
-• Bea Masuk (BM)  : dihitung dari nilai CIF × tarif
-• PPN Impor       : 11% × (CIF + BM)
-• PPh Pasal 22    : sesuai jenis barang
-
-⚠️ Perhitungan bersifat *estimasi*. Nilai pasti ditentukan saat proses customs clearance.
-
-Butuh informasi lebih lanjut? 🙏` },
-
-  { id:6, cat:'impor', channel:'wa', title:'Impor Barang Kiriman / Paket',
-    vars:['nama'],
-    text:`Halo Bapak/Ibu *[nama]* 📦
-
-Untuk *barang kiriman (paket luar negeri)*, berlaku ketentuan:
-
-✅ *Bebas BM & Pajak:*
-• Nilai di bawah *USD 3* (Free on Board)
-
-📋 *Dikenakan BM & Pajak:*
-• Nilai di atas USD 3
-• BM: sesuai tarif HS Code
-• PPN: 11%
-• PPh: 7,5% – 10% (tergantung kepemilikan NPWP)
-
-📱 *Cek status paket:*
-Website: beacukai.go.id → Cek Barang Kiriman
-
-Ada nomor resi yang ingin dicek? 😊` },
-
-  // EKSPOR
-  { id:7, cat:'ekspor', channel:'all', title:'Informasi Umum Ekspor',
-    vars:['nama'],
-    text:`Halo Bapak/Ibu *[nama]* ✈️
-
-Berikut informasi *prosedur ekspor barang*:
-
-📄 *Dokumen Ekspor:*
-• Pemberitahuan Ekspor Barang (PEB)
-• Invoice & Packing List
-• Sertifikat asal barang (bila diperlukan)
-• Izin ekspor (untuk barang tertentu)
-
-📋 *Alur Ekspor:*
-1️⃣ Pengajuan PEB via CEISA
-2️⃣ Penerbitan NPE (Nota Pelayanan Ekspor)
-3️⃣ Pemeriksaan fisik (bila jalur merah)
-4️⃣ Pemuatan barang ke sarana pengangkut
-
-💡 Ekspor umumnya *tidak dikenakan bea keluar*, kecuali barang tertentu (CPO, mineral, dll).
-
-Ada pertanyaan? 😊` },
-
-  // CUKAI
-  { id:8, cat:'cukai', channel:'all', title:'Informasi Cukai Rokok',
-    vars:['nama'],
-    text:`Halo Bapak/Ibu *[nama]* 🚬
-
-Berikut informasi terkait *cukai hasil tembakau (rokok)*:
-
-💰 *Tarif Cukai 2024:*
-• SKM (Sigaret Kretek Mesin): sesuai golongan
-• SKT (Sigaret Kretek Tangan): sesuai golongan
-• SPM (Sigaret Putih Mesin): sesuai golongan
-
-⚠️ *Ketentuan penting:*
-• Setiap batang rokok *wajib dilekati pita cukai*
-• Rokok tanpa pita cukai = *ILEGAL*
-• Pelanggaran dapat dikenakan sanksi pidana
-
-📞 Laporkan rokok ilegal ke:
-*1500 225* (Hotline Bea Cukai)
-
-Ada yang ingin ditanyakan? 🙏` },
-
-  { id:9, cat:'cukai', channel:'all', title:'Pengurusan NPPBKC',
-    vars:['nama'],
-    text:`Halo Bapak/Ibu *[nama]* 📋
-
-Untuk *pengajuan NPPBKC* (Nomor Pokok Pengusaha Barang Kena Cukai):
-
-📁 *Persyaratan dokumen:*
-• Fotokopi KTP / identitas pengurus
-• Fotokopi NPWP perusahaan
-• Fotokopi akta pendirian perusahaan
-• Fotokopi izin usaha (NIB/SIUP)
-• Foto lokasi usaha / pabrik
-• Denah/lay-out lokasi
-
-🏢 *Pengajuan:*
-Datang langsung ke *Kantor Bea Cukai Pasuruan*
-atau melalui portal: *portal.beacukai.go.id*
-
-⏱️ Proses: ± 30 hari kerja setelah berkas lengkap.
-
-Butuh bantuan lebih lanjut? 😊` },
-
-  // STATUS
-  { id:10, cat:'status', channel:'wa', title:'Pengecekan Status Barang',
-    vars:['nama','nomor_aju'],
-    text:`Halo Bapak/Ibu *[nama]* 🔍
-
-Kami sedang mengecek status barang Anda dengan:
-📌 Nomor Aju: *[nomor_aju]*
-
-⏳ Mohon ditunggu sebentar, kami akan segera memberikan informasi.
-
-Atau Anda bisa cek secara mandiri di:
-🌐 *www.beacukai.go.id/barangkiriman*
-
-Jika ada kendala, kami siap membantu 😊` },
-
-  { id:11, cat:'status', channel:'all', title:'Barang Tertahan / Hold',
-    vars:['nama','nomor_dokumen'],
-    text:`Halo Bapak/Ibu *[nama]* 📦
-
-Berdasarkan pengecekan untuk dokumen *[nomor_dokumen]*, barang Anda saat ini dalam status *HOLD / DITAHAN* karena:
-
-🔴 Kemungkinan penyebab:
-• Dokumen belum lengkap
-• Diperlukan pemeriksaan fisik
-• Adanya kekurangan pembayaran bea/pajak
-• Barang masuk kategori lartas
-
-📋 *Langkah selanjutnya:*
-1. Lengkapi dokumen yang diperlukan
-2. Hubungi petugas kami di loket pelayanan
-3. Atau datang langsung ke Kantor Bea Cukai Pasuruan
-
-📍 Jl. [alamat kantor]
-📞 [nomor telepon kantor]
-
-Kami siap membantu menyelesaikan 🙏` },
-
-  // PROSEDUR
-  { id:12, cat:'prosedur', channel:'all', title:'Jam & Lokasi Pelayanan',
-    vars:[],
-    text:`Halo! Berikut informasi *Kantor Bea Cukai Pasuruan* 📍
-
-🏢 *Alamat:*
-Jl. Gatot Subroto No. 1, Pasuruan, Jawa Timur
-
-⏰ *Jam Pelayanan:*
-Senin – Kamis : 08.00 – 16.00 WIB
-Jumat          : 08.00 – 16.30 WIB
-Sabtu & Minggu : Tutup 🚪
-
-📞 *Kontak:*
-Telp: (0343) XXXXXX
-Email: bc.pasuruan@customs.go.id
-IG: @beacukaipasuruan
-
-🌐 *Website:* www.beacukai.go.id
-
-Untuk keperluan mendesak di luar jam kerja, dapat menghubungi nomor darurat kami 🙏` },
-
-  { id:13, cat:'prosedur', channel:'all', title:'Syarat Impor Barang Khusus - Makanan',
-    vars:['nama'],
-    text:`Halo Bapak/Ibu *[nama]* 🍱
-
-Untuk *impor produk makanan/minuman*, diperlukan:
-
-📋 *Persyaratan tambahan:*
-✅ Sertifikat halal (untuk produk tertentu)
-✅ Izin BPOM / ML Number
-✅ Label bahasa Indonesia
-✅ Keterangan kedaluwarsa jelas
-✅ Sertifikat kesehatan dari negara asal
-
-⚠️ *Catatan:*
-Tanpa izin BPOM, produk makanan/minuman *tidak dapat dikeluarkan* dari pabean.
-
-💡 Urus izin BPOM di: *www.registrasipangan.pom.go.id*
-
-Ada pertanyaan lebih lanjut? 😊` },
 
   // LARTAS
   { id:14, cat:'lartas', channel:'all', title:'Informasi Lartas',
@@ -842,9 +628,10 @@ Berikut *cara mendaftarkan IMEI* perangkat dari luar negeri:
 • Bukti pembelian/invoice (jika ada)
 
 *Langkah 3 — Datang ke Kantor Bea Cukai:*
-📍 Kantor Bea Cukai Pasuruan
-⏰ Senin–Kamis: 08.00–16.00 WIB
-   Jumat: 08.00–16.30 WIB
+📍 Jl. Rembang Industri Raya No.1, Jati, Pandean, Kec. Rembang, Pasuruan
+📞 (0343) 747979
+⏰ Senin–Kamis: 07.30–17.00 WIB
+   Jumat: 07.30–17.00 WIB
 
 💡 Aktivasi jaringan maksimal *2×24 jam* setelah proses selesai.
 
@@ -1075,64 +862,6 @@ Berikut *cara pengajuan izin Kawasan Berikat*:
 
 Kami siap membantu konsultasi! 😊` },
 
-  // ── FAQ: INSW ──
-  { id:31, cat:'insw', channel:'all', title:'FAQ INSW — Apa itu INSW?',
-    vars:['nama'],
-    text:`Halo Bapak/Ibu *[nama]* 🌐
-
-*Apa itu INSW (Indonesia National Single Window)?*
-
-INSW adalah *sistem elektronik terintegrasi nasional* yang menghubungkan seluruh proses penanganan dokumen ekspor-impor dalam satu platform.
-
-🏛️ *Dikelola oleh:*
-LNSW (Lembaga National Single Window) — Kementerian Keuangan RI
-
-📋 *Fungsi INSW:*
-• Penerimaan dokumen *Pemberitahuan Pabean* (PIB/PEB)
-• Penerimaan dokumen *perizinan* dari instansi teknis
-• Proses otomasi *Customs Release & Cargo Clearance*
-• Tracking dokumen pabean & perizinan secara real-time
-• Integrasi data antar kementerian/lembaga
-
-🔗 *Manfaat bagi pelaku usaha:*
-✅ Satu portal untuk semua dokumen ekspor-impor
-✅ Proses lebih cepat dan transparan
-✅ Mengurangi tatap muka dan dokumen fisik
-✅ Terintegrasi dengan ASEAN Single Window (ASW)
-
-🌐 Akses portal: *www.insw.go.id*
-
-Ada pertanyaan? 😊` },
-
-  { id:32, cat:'insw', channel:'all', title:'FAQ INSW — Cara Registrasi di Portal INSW',
-    vars:['nama'],
-    text:`Halo Bapak/Ibu *[nama]* 🖥️
-
-Berikut *cara registrasi di portal INSW*:
-
-👤 *Siapa yang perlu daftar?*
-• Importir / Eksportir
-• PPJK (Pengusaha Pengurusan Jasa Kepabeanan)
-• Petugas instansi pemerintah terkait (GA)
-• Perusahaan pengguna fasilitas TPB/KB
-
-📝 *Langkah Registrasi:*
-1️⃣ Kunjungi *portal.insw.go.id*
-2️⃣ Pilih menu *Registrasi Pengguna Baru*
-3️⃣ Siapkan: NPWP, NIB, akta perusahaan, KTP pengurus
-4️⃣ Isi data perusahaan dan unggah dokumen
-5️⃣ Tunggu verifikasi dari admin INSW
-6️⃣ Setelah disetujui, akun aktif dan siap digunakan
-
-🔐 *Tipe akun:*
-• *User Admin Perusahaan* — mengelola akun internal
-• *User GA* — untuk instansi pemerintah
-• *User Analyzing Point (AP)* — petugas pemeriksaan
-
-🌐 Panduan lengkap: *panduan.insw.go.id*
-
-Butuh bantuan teknis lebih lanjut? 🙏` },
-
   // ── FAQ: BARANG PENUMPANG ──
   { id:33, cat:'penumpang', channel:'all', title:'FAQ Barang Penumpang — Ketentuan Umum',
     vars:['nama'],
@@ -1270,35 +999,59 @@ Pelaku dapat tidak diproses pidana jika membayar denda administrasi *3× nilai c
 
 Ingin tahu cara melaporkan rokok ilegal? 🙏` },
 
-  { id:38, cat:'rokokilegal', channel:'wa', title:'FAQ Rokok Ilegal — Cara Melaporkan',
+  { id:38, cat:'rokokilegal', channel:'wa', title:'Rokok Ilegal — Cara Melaporkan',
     vars:['nama'],
     text:`Halo Bapak/Ibu *[nama]* 📢
 
 Jika menemukan indikasi peredaran *rokok ilegal*, segera laporkan melalui:
+
+📱 *WhatsApp Bea Cukai Pasuruan:*
+*+62 895-3234-07724*
 
 📞 *Bravo Bea Cukai (Nasional):*
 • Hotline: *1500 225*
 • Semua saluran: *linktr.ee/bravobeacukai*
 
 🏢 *Datang langsung:*
-Kantor Bea Cukai Pasuruan
-
-📱 *Media sosial resmi kami:*
-Instagram: *@beacukaipasuruan*
+Jl. Rembang Industri Raya No.1, Jati, Pandean
+Kec. Rembang, Pasuruan
+📞 (0343) 747979
+⏰ Senin–Jumat: 07.30–17.00 WIB
 
 🌐 *Whistleblowing System:*
 *wbs.customs.go.id*
 
 🔐 *Identitas pelapor dijamin kerahasiaannya!*
 
-✅ *Informasi yang perlu disiapkan:*
-• Lokasi peredaran / nama toko
-• Foto kemasan rokok ilegal (jika memungkinkan)
-• Nama pelaku/distributor (jika diketahui)
-
-🛡️ *Operasi Gurita* (sejak April 2025) adalah operasi nasional Bea Cukai serentak memberantas BKC ilegal.
+📋 *Format laporan singkat tersedia* — ketuk tombol di bawah atau minta ke CS kami.
 
 Mari bersama lawan rokok ilegal! 💪🇮🇩` },
+
+  { id:39, cat:'rokokilegal', channel:'wa', title:'Rokok Ilegal — Format Laporan (Kirim ke WA)',
+    vars:['nama_pelapor','tanggal_temuan','lokasi','nama_toko','alamat_toko','jenis_rokok','perkiraan_jumlah','keterangan_tambahan'],
+    text:`📋 *LAPORAN ROKOK ILEGAL*
+*KPPBC TMP A PASURUAN*
+━━━━━━━━━━━━━━━━━━━━
+
+👤 *DATA PELAPOR*
+Nama        : [nama_pelapor]
+Tgl Lapor   : [tanggal_temuan]
+
+📍 *LOKASI TEMUAN*
+Nama Toko   : [nama_toko]
+Alamat      : [alamat_toko]
+
+🚬 *DETAIL TEMUAN*
+Jenis Rokok : [jenis_rokok]
+Est. Jumlah : [perkiraan_jumlah]
+Keterangan  : [keterangan_tambahan]
+
+━━━━━━━━━━━━━━━━━━━━
+⚠️ _Mohon sertakan foto kemasan rokok sebagai bukti_
+🔐 _Identitas pelapor dijamin kerahasiaannya_
+
+*Kirim laporan ini ke WA:*
+📲 *+62 895-3234-07724*` },
 ];
 
 let selectedId = null;
