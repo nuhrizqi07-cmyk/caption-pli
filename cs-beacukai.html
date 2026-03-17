@@ -423,6 +423,8 @@ const CATEGORIES = [
   { id:'kb',        name:'FAQ — Kawasan Berikat',  icon:'🏗️', color:'#38bdf8', bg:'rgba(56,189,248,0.15)' },
   { id:'penumpang', name:'FAQ — Barang Penumpang', icon:'🧳', color:'#fbbf24', bg:'rgba(251,191,36,0.15)' },
   { id:'rokokilegal',name:'FAQ — Rokok Ilegal',    icon:'🚭', color:'#f43f5e', bg:'rgba(244,63,94,0.15)' },
+  { id:'ppid',      name:'FAQ — PPID',             icon:'📂', color:'#c084fc', bg:'rgba(192,132,252,0.15)' },
+  { id:'umkm',      name:'FAQ — UMKM & Ekspor',   icon:'🏪', color:'#4ade80', bg:'rgba(74,222,128,0.15)' },
 ];
 
 const TEMPLATES = [
@@ -1052,6 +1054,190 @@ Keterangan  : [keterangan_tambahan]
 
 *Kirim laporan ini ke WA:*
 📲 *+62 895-3234-07724*` },
+
+  // ── FAQ: PPID ──
+  { id:40, cat:'ppid', channel:'all', title:'FAQ PPID — Apa itu PPID?',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 📂
+
+*Apa itu PPID?*
+
+PPID (Pejabat Pengelola Informasi dan Dokumentasi) adalah pejabat yang bertanggung jawab mengelola dan menyediakan *informasi publik* di lingkungan Kementerian Keuangan / Bea Cukai.
+
+📋 *Dasar Hukum:*
+UU No. 14 Tahun 2008 tentang Keterbukaan Informasi Publik (KIP)
+
+🗂️ *Jenis Informasi Publik:*
+✅ *Wajib Berkala* — laporan kinerja, anggaran, dll (diumumkan rutin)
+✅ *Wajib Serta Merta* — menyangkut hajat hidup orang banyak
+✅ *Tersedia Setiap Saat* — dapat diminta kapan pun
+❌ *Dikecualikan* — tidak dapat diberikan sesuai UU KIP Pasal 17
+
+💰 *Biaya:*
+Layanan PPID *GRATIS* — kecuali penggandaan dokumen
+
+🌐 *Portal Resmi:*
+*e-ppid.kemenkeu.go.id*
+
+📱 *Aplikasi Mobile:*
+Unduh *Aplikasi PPID Kemenkeu* di Play Store / App Store
+
+Ada pertanyaan lebih lanjut? 😊` },
+
+  { id:41, cat:'ppid', channel:'all', title:'FAQ PPID — Alur Permohonan Informasi',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 📋
+
+Berikut *alur permohonan informasi publik* via PPID Kemenkeu:
+
+━━━━━━━━━━━━━━━━
+📌 *TAHAP 1 — Ajukan Permohonan*
+━━━━━━━━━━━━━━━━
+Pilih salah satu saluran:
+🌐 Online: *e-ppid.kemenkeu.go.id/in/login*
+📱 Aplikasi mobile PPID Kemenkeu
+📧 Email / surat tertulis
+🏢 Datang langsung ke loket PPID
+
+📎 *Dokumen yang dilampirkan:*
+• Perorangan WNI: *fotokopi KTP*
+• Badan hukum: fotokopi *akta/SK pengesahan*
+• Dikuasakan: KTP pemohon + *surat kuasa bermaterai* + KTP pemberi kuasa
+
+━━━━━━━━━━━━━━━━
+📌 *TAHAP 2 — Terima Tanda Bukti*
+━━━━━━━━━━━━━━━━
+Petugas menerbitkan tanda bukti setelah syarat terpenuhi.
+
+━━━━━━━━━━━━━━━━
+📌 *TAHAP 3 — Tunggu Pemberitahuan Tertulis*
+━━━━━━━━━━━━━━━━
+⏱️ PPID merespons paling lambat:
+• *10 hari kerja* sejak permohonan lengkap
+• Dapat diperpanjang *7 hari kerja* berikutnya
+
+━━━━━━━━━━━━━━━━
+📌 *TAHAP 4 — Terima Informasi / Penolakan*
+━━━━━━━━━━━━━━━━
+Pemohon menerima informasi atau *Surat Keputusan Penolakan* beserta alasannya.
+
+🌐 *e-ppid.kemenkeu.go.id*
+
+Butuh bantuan lebih lanjut? 🙏` },
+
+  { id:42, cat:'ppid', channel:'all', title:'FAQ PPID — Alur Keberatan & Sengketa',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* ⚖️
+
+Jika permohonan informasi ditolak atau tidak ditanggapi, berikut *alur keberatan & sengketa*:
+
+━━━━━━━━━━━━━━━━
+📌 *KEBERATAN — ke Atasan PPID*
+━━━━━━━━━━━━━━━━
+1️⃣ Ajukan keberatan secara tertulis via:
+   🌐 *e-ppid.kemenkeu.go.id*
+   📧 Email / surat / datang langsung
+2️⃣ Lampirkan bukti permohonan sebelumnya
+3️⃣ Terima tanda bukti keberatan
+4️⃣ Tanggapan Atasan PPID paling lambat *30 hari kerja*
+
+⏳ *Batas waktu keberatan:*
+Paling lambat *30 hari kerja* setelah menerima tanggapan PPID
+
+━━━━━━━━━━━━━━━━
+📌 *SENGKETA — ke Komisi Informasi*
+━━━━━━━━━━━━━━━━
+Jika keberatan belum memuaskan, ajukan ke *Komisi Informasi Pusat*
+
+⏱️ Proses mediasi dimulai ≤ *14 hari kerja*, diselesaikan ≤ *100 hari kerja*
+
+🌐 *e-ppid.kemenkeu.go.id*
+
+Kami siap membantu 🙏` },
+
+  // ── FAQ: UMKM ──
+  { id:43, cat:'umkm', channel:'all', title:'FAQ UMKM — Portal UKME & Sertifikasi Ekspor',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 🏪
+
+*Apa itu Portal UKME Kemenkeu?*
+
+Portal *ukme.kemenkeu.go.id* adalah platform resmi Kementerian Keuangan yang menyediakan informasi & layanan untuk mendukung *UMKM berorientasi ekspor*.
+
+🎯 *Apa saja yang tersedia?*
+✅ Info fasilitas kepabeanan khusus UMKM
+✅ Pendaftaran *Sertifikasi UMKM Berorientasi Ekspor*
+✅ Panduan prosedur ekspor step-by-step
+✅ Akses program pembinaan & asistensi Bea Cukai
+
+🏅 *Sertifikasi UMKM Berorientasi Ekspor:*
+Program resmi Bea Cukai (kick-off Desember 2024) berdasarkan *PER-25/BC/2024*.
+Sertifikasi ini adalah *validasi resmi* kesiapan UMKM naik kelas ke pasar global.
+
+🌐 *ukme.kemenkeu.go.id*
+
+Mau tahu fasilitas apa saja untuk UMKM? 😊` },
+
+  { id:44, cat:'umkm', channel:'all', title:'FAQ UMKM — Fasilitas Bea Cukai untuk UMKM/IKM',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 🚀
+
+Berikut *fasilitas Bea Cukai* yang bisa dimanfaatkan UMKM/IKM:
+
+🏭 *1. KITE IKM*
+(Kemudahan Impor Tujuan Ekspor untuk IKM)
+✅ Pembebasan Bea Masuk bahan baku
+✅ PPN & PPnBM tidak dipungut saat impor bahan baku, mesin & barang contoh
+✅ Cocok untuk: garmen, furnitur, kerajinan, makanan olahan ekspor
+
+📦 *2. Pusat Logistik Berikat (PLB) untuk IKM*
+✅ Kemudahan penyimpanan & distribusi barang ekspor
+✅ Penangguhan bea masuk selama barang di PLB
+
+🩺 *3. Klinik Ekspor*
+✅ Konsultasi prosedur ekspor *GRATIS*
+✅ Asistensi perizinan & pembuatan katalog produk
+✅ Tersedia di *Kantor Bea Cukai Pasuruan*
+
+🌐 *4. National Logistic Ecosystem (NLE)*
+✅ Solusi logistik terintegrasi untuk efisiensi rantai pasok ekspor
+
+📌 Dasar hukum: *PER-25/BC/2024*
+
+🌐 Info lengkap: *ukme.kemenkeu.go.id*
+
+Mau konsultasi ekspor langsung? 😊` },
+
+  { id:45, cat:'umkm', channel:'wa', title:'FAQ UMKM — Cara Ikut Klinik Ekspor',
+    vars:['nama'],
+    text:`Halo Bapak/Ibu *[nama]* 📤
+
+Tertarik ekspor? Manfaatkan *Klinik Ekspor* KPPBC TMP A Pasuruan — *GRATIS!*
+
+💡 *Apa itu Klinik Ekspor?*
+Layanan konsultasi & pembinaan dari Bea Cukai untuk membantu UMKM/IKM memahami dan menjalankan prosedur ekspor.
+
+✅ *Topik konsultasi:*
+• Prosedur & dokumen ekspor (PEB, invoice, packing list)
+• Fasilitas KITE IKM, PLB & Kawasan Berikat
+• Klasifikasi HS Code komoditas
+• Perizinan lartas ekspor
+• Potensi pasar & strategi go international
+
+📋 *Cara mendaftar:*
+1️⃣ Hubungi kami via WhatsApp atau Instagram
+2️⃣ Sampaikan jenis usaha & produk yang ingin diekspor
+3️⃣ Tim kami jadwalkan sesi konsultasi
+4️⃣ Konsultasi *tatap muka* atau *online*
+
+🏢 *Kantor KPPBC TMP A Pasuruan:*
+📍 Jl. Rembang Industri Raya No.1, Pandean, Pasuruan
+📞 (0343) 747979
+⏰ Senin–Jumat: 07.30–17.00 WIB
+
+🌐 *ukme.kemenkeu.go.id*
+
+Kami siap bantu UMKM Bapak/Ibu go international! 🇮🇩✨` },
 ];
 
 let selectedId = null;
